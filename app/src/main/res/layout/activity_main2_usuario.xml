@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#B2DDE7">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <!-- Botón de retroceso en la parte superior derecha -->
+        <ImageView
+            android:id="@+id/salida_olvido3"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/retroceso"
+            android:contentDescription="icono salida" />
+
+        <!-- Título centrado -->
+        <TextView
+            android:id="@+id/label_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="Usuario"
+            android:textColor="#4B869F"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <!-- Contenedor blanco con imagen de perfil y nombre -->
+
+        <!-- Campos de texto -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_panel_redondo"
+            android:elevation="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <!-- Imagen de perfil -->
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="30dp"
+                android:src="@drawable/usuario" />
+
+            <!-- Contenedor vertical para nombre y apellido -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/nombre_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre"
+                    android:textColor="#000"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/apellido_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Apellido"
+                    android:textColor="#000"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/nombre_text"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/edit_text_usuario"
+            android:padding="8dp"
+            android:textSize="17sp"
+            android:hint="David"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/apellido_text"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/edit_text_usuario"
+            android:padding="8dp"
+            android:textSize="17sp"
+            android:hint="Garcia"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/correo_electronico_text"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/edit_text_usuario"
+            android:padding="8dp"
+            android:textSize="17sp"
+            android:hint="David@hotmail.com"
+            android:gravity="center"/>
+
+
+        <EditText
+            android:id="@+id/fecha_de_nacimiento_text"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/edit_text_usuario"
+            android:padding="8dp"
+            android:textSize="17sp"
+            android:hint="02/12/2000"
+            android:gravity="center"/>
+
+        <!-- Botón negro centrado -->
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:layout_gravity="center"
+            android:backgroundTint="#000000"
+            android:text="Actualizar Informacion"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+</ScrollView>

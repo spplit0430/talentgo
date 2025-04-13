@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4A708B"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <!-- Icono superior -->
+    <ImageView
+        android:id="@+id/salida_olvido"
+        android:layout_width="60dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/salida_login" />
+
+
+    <TextView
+        android:id="@+id/titulo_contraseña"
+        android:layout_width="257dp"
+        android:layout_height="138dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/edit_text_registrar"
+        android:paddingHorizontal="35dp"
+        android:paddingVertical="30dp"
+        android:text="¿Olvido Su Contraseña?"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/correo_electronico"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="10dp"
+        android:text="Correo Electronico"
+        android:textColor="#FFFFFF"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label_title" />
+
+    <EditText
+        android:id="@+id/nombre_text"
+        android:layout_width="310dp"
+        android:layout_height="45dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_text_registrar_2"
+        android:padding="8dp"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/correo_electronico" />
+
+
+    <Button
+        android:id="@+id/recuperar"
+        android:layout_width="130dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="130dp"
+        android:layout_marginTop="28dp"
+        android:backgroundTint="#000000"
+        android:text="Recuperar"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nombre_text" />
+
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/candado"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</LinearLayout>
