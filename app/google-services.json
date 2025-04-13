@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "157063824222",
+    "firebase_url": "https://talentgo-0430-default-rtdb.firebaseio.com",
+    "project_id": "talentgo-0430",
+    "storage_bucket": "talentgo-0430.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157063824222:android:1982b03d3e6838972b45cf",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpD1JKvjG5YQXYgLm_RrFBcG5M_jTptTI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
