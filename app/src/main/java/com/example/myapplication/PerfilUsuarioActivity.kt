@@ -6,9 +6,14 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PerfilUsuarioActivity : AppCompatActivity() {
 
@@ -20,6 +25,9 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private lateinit var apellidoLabel: TextView
 
     private lateinit var actualizarUsuarioLauncher: ActivityResultLauncher<Intent>
+
+    private val auth = FirebaseAuth.getInstance()
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +44,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                 val nuevoCorreo = data.getStringExtra("correo") ?: ""
                 val nuevaFechaNacimiento = data.getStringExtra("fechaNacimiento") ?: ""
 
-                // Actualizar los campos con los nuevos valores
                 nombreText.setText(nuevoNombre)
                 apellidoText.setText(nuevoApellido)
                 correoText.setText(nuevoCorreo)
@@ -59,24 +66,52 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         correoText.isEnabled = false
         fechaNacimientoText.isEnabled = false
 
-
         // Referencias a los TextView del encabezado
         nombreLabel = findViewById(R.id.nombre_label)
         apellidoLabel = findViewById(R.id.apellido_label)
 
-        // Obtener datos desde el intent
-        val nombre = intent.getStringExtra("nombre") ?: ""
-        val apellido = intent.getStringExtra("apellido") ?: ""
-        val correo = intent.getStringExtra("correo") ?: ""
-        val fechaNacimiento = intent.getStringExtra("fechaNacimiento") ?: ""
+        // Obtener datos del usuario desde Firestore
+        val userId = auth.currentUser?.uid
 
-        // Establecer valores en los campos
-        nombreText.setText(nombre)
-        apellidoText.setText(apellido)
-        correoText.setText(correo)
-        fechaNacimientoText.setText(fechaNacimiento)
-        nombreLabel.text = nombre
-        apellidoLabel.text = apellido
+        if (userId != null) {
+            db.collection("usuarios").document(userId).get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        val nombre = document.getString("nombre") ?: ""
+                        val apellido = document.getString("apellido") ?: ""
+                        val correo = document.getString("correo_electronico") ?: ""
+                        val fechaNacimientoString = document.getString("fechaNacimiento") ?: ""
+
+                        // Convertir fecha de String a un formato adecuado
+                        val dateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
+                        var fechaNacimiento: String
+                        try {
+                            val date = dateFormat.parse(fechaNacimientoString)
+                            val displayFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                            fechaNacimiento = displayFormat.format(date)
+                        } catch (e: Exception) {
+                            fechaNacimiento = "Fecha inválida"
+                        }
+
+                        // Actualizar los campos con los datos recuperados
+                        nombreText.setText(nombre)
+                        apellidoText.setText(apellido)
+                        correoText.setText(correo)
+                        fechaNacimientoText.setText(fechaNacimiento)
+
+                        nombreLabel.text = nombre
+                        apellidoLabel.text = apellido
+                    } else {
+                        Toast.makeText(this, "No se encontró el perfil", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Error al cargar perfil", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            Toast.makeText(this, "Usuario no autenticado", Toast.LENGTH_SHORT).show()
+            finish()
+        }
 
         // Botón de retroceso
         val botonRetroceso = findViewById<ImageView>(R.id.salida_olvido3)

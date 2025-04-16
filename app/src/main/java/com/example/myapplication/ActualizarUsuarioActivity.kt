@@ -2,88 +2,111 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Toast
+import android.util.Log
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.android.volley.Request
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ActualizarUsuarioActivity : AppCompatActivity() {
+
+    private lateinit var nombreText: EditText
+    private lateinit var apellidoText: EditText
+    private lateinit var correoText: EditText
+    private lateinit var fechaNacimientoText: EditText
+    private lateinit var actualizarBtn: Button
+
+    private val auth = FirebaseAuth.getInstance()
+    private val db = FirebaseFirestore.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2_actualizar)
 
-        val nombreText = findViewById<EditText>(R.id.nombre_actualizar_text)
-        val apellidoText = findViewById<EditText>(R.id.apellido_actualizar_text)
-        val correoText = findViewById<EditText>(R.id.correo_electronico_actualizar_text)
-        val fechaNacimientoText = findViewById<EditText>(R.id.fecha_de_nacimiento_actualizar_text)
+        nombreText = findViewById(R.id.nombre_actualizar_text)
+        apellidoText = findViewById(R.id.apellido_actualizar_text)
+        correoText = findViewById(R.id.correo_electronico_actualizar_text)
+        fechaNacimientoText = findViewById(R.id.fecha_de_nacimiento_actualizar_text)
+        actualizarBtn = findViewById(R.id.login_button)
 
-        val nombre = intent.getStringExtra("nombre") ?: ""
-        val apellido = intent.getStringExtra("apellido") ?: ""
-        val correo = intent.getStringExtra("correo") ?: ""
-        val fechaNacimiento = intent.getStringExtra("fechaNacimiento") ?: ""
+        // Cargar datos pasados desde la vista anterior
+        nombreText.setText(intent.getStringExtra("nombre"))
+        apellidoText.setText(intent.getStringExtra("apellido"))
+        correoText.setText(intent.getStringExtra("correo"))
+        fechaNacimientoText.setText(intent.getStringExtra("fechaNacimiento"))
 
-        val correoAnterior = correo.trim().lowercase()
-
-        nombreText.setText(nombre)
-        apellidoText.setText(apellido)
-        correoText.setText(correo)
-        fechaNacimientoText.setText(fechaNacimiento)
-
-        val botonRetroceso = findViewById<ImageView>(R.id.salida_olvido2)
-        botonRetroceso.setOnClickListener {
-            finish()
-        }
-
-        val actualizarBtn = findViewById<Button>(R.id.login_button)
         actualizarBtn.setOnClickListener {
             val nuevoNombre = nombreText.text.toString().trim()
             val nuevoApellido = apellidoText.text.toString().trim()
-            val nuevoCorreo = correoText.text.toString().trim().lowercase()
+            val nuevoCorreo = correoText.text.toString().trim()
             val nuevaFechaNacimiento = fechaNacimientoText.text.toString().trim()
 
-            if (nuevoNombre.isEmpty() || nuevoApellido.isEmpty() || nuevoCorreo.isEmpty() || nuevaFechaNacimiento.isEmpty()) {
-                Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
+            val user = auth.currentUser
 
-            val url = "http://192.168.1.3/usuarios_api/actualizar_usuario.php"
+            if (user != null) {
+                // 🔍 Log de datos antes de actualizar
+                Log.d("ActualizarUsuario", "Intentando actualizar: $nuevoNombre, $nuevoApellido, $nuevoCorreo, $nuevaFechaNacimiento")
 
-            val stringRequest = object : StringRequest(
-                Request.Method.POST, url,
-                { response ->
-                    Toast.makeText(this, response, Toast.LENGTH_SHORT).show()
+                // 1. Verificar si el correo actual está verificado
+                if (!user.isEmailVerified) {
+                    // Si el correo no está verificado, enviar un correo de verificación
+                    user.sendEmailVerification()
+                        .addOnSuccessListener {
+                            Log.d("ActualizarUsuario", "Correo de verificación enviado a ${user.email}")
+                            Toast.makeText(this, "Correo de verificación enviado a ${user.email}. Por favor verifícalo antes de continuar.", Toast.LENGTH_LONG).show()
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("ActualizarUsuario", "Error al enviar verificación: ${e.message}", e)
+                            Toast.makeText(this, "Error al enviar correo de verificación", Toast.LENGTH_SHORT).show()
+                        }
+                } else {
+                    // 2. Si el correo está verificado, proceder a actualizarlo
+                    user.updateEmail(nuevoCorreo)
+                        .addOnSuccessListener {
+                            Log.d("ActualizarUsuario", "Correo electrónico actualizado correctamente")
 
-                    // ✅ Enviar los datos actualizados de vuelta a PerfilUsuarioActivity
-                    val resultIntent = Intent().apply {
-                        putExtra("nombre", nuevoNombre)
-                        putExtra("apellido", nuevoApellido)
-                        putExtra("correo", nuevoCorreo)
-                        putExtra("fechaNacimiento", nuevaFechaNacimiento)
-                    }
-                    setResult(RESULT_OK, resultIntent)
-                    finish()
-                },
-                { error ->
-                    Toast.makeText(this, "Error al actualizar: ${error.message}", Toast.LENGTH_LONG).show()
+                            // 3. Actualizar datos en Firestore
+                            val userMap = mapOf(
+                                "nombre" to nuevoNombre,
+                                "apellido" to nuevoApellido,
+                                "correo_electronico" to nuevoCorreo,
+                                "fecha_de_nacimiento" to nuevaFechaNacimiento
+                            )
+
+                            db.collection("usuarios").document(user.uid)
+                                .update(userMap)
+                                .addOnSuccessListener {
+                                    Log.d("ActualizarUsuario", "Datos del usuario actualizados en Firestore")
+
+                                    val resultIntent = Intent().apply {
+                                        putExtra("nombre", nuevoNombre)
+                                        putExtra("apellido", nuevoApellido)
+                                        putExtra("correo", nuevoCorreo)
+                                        putExtra("fechaNacimiento", nuevaFechaNacimiento)
+                                    }
+
+                                    setResult(RESULT_OK, resultIntent)
+                                    finish()
+                                }
+                                .addOnFailureListener { e ->
+                                    Log.e("ActualizarUsuario", "Error al actualizar en Firestore: ${e.message}", e)
+                                    Toast.makeText(this, "Error al guardar datos", Toast.LENGTH_SHORT).show()
+                                }
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("ActualizarUsuario", "Error al actualizar correo electrónico: ${e.message}", e)
+                            Toast.makeText(this, "Error al actualizar correo: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
                 }
-            ) {
-                override fun getParams(): Map<String, String> {
-                    return mapOf(
-                        "correo_anterior" to correoAnterior,
-                        "correo_electronico" to nuevoCorreo,
-                        "nombre" to nuevoNombre,
-                        "apellido" to nuevoApellido,
-                        "fechaNacimiento" to nuevaFechaNacimiento
-                    )
-                }
+            } else {
+                Log.e("ActualizarUsuario", "Usuario no autenticado")
+                Toast.makeText(this, "Usuario no autenticado", Toast.LENGTH_SHORT).show()
             }
+        }
 
-            val queue = Volley.newRequestQueue(this)
-            queue.add(stringRequest)
+        val salirActualizar = findViewById<ImageView>(R.id.salida_olvido2)
+        salirActualizar.setOnClickListener {
+            finish()
         }
     }
 }

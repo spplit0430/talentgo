@@ -1,26 +1,34 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.android.volley.Request
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
-import org.json.JSONObject
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.auth.FirebaseUser
+import java.text.SimpleDateFormat
+import java.util.*
 
 class RegisterActivity : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_registrarse)
 
-        // Botón para salir
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+
         val salirRegistro = findViewById<ImageView>(R.id.salida_olvido2)
         salirRegistro.setOnClickListener {
-            finish()
+            finish()  // Terminar la actividad de registro
         }
 
-        // Elementos del formulario
         val nombreText = findViewById<EditText>(R.id.nombre_text)
         val apellidoText = findViewById<EditText>(R.id.apellido_text)
         val correoText = findViewById<EditText>(R.id.correo_electronico_text)
@@ -35,50 +43,83 @@ class RegisterActivity : AppCompatActivity() {
             val contrasena = contrasenaText.text.toString().trim()
             val fechaNacimiento = fechaNacimientoText.text.toString().trim()
 
-            // Validación de campos vacíos
             if (nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty() || contrasena.isEmpty() || fechaNacimiento.isEmpty()) {
                 Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            val url = "http://192.168.1.3/usuarios_api/insertar_usuario.php"
-
-            val request = object : StringRequest(
-                Request.Method.POST, url,
-                { response ->
-                    try {
-                        // Imprime la respuesta cruda en un Toast para verla
-                        Toast.makeText(this, "Respuesta: $response", Toast.LENGTH_LONG).show()
-
-                        val json = JSONObject(response)
-                        val success = json.getBoolean("success")
-                        val message = json.getString("message")
-
-                        if (success) {
-                            Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show()
-                            finish()
-                        } else {
-                            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-                        }
-                    } catch (e: Exception) {
-                        Toast.makeText(this, "Error al procesar respuesta: ${e.message}", Toast.LENGTH_LONG).show()
-                    }
-                },
-                { error ->
-                    Toast.makeText(this, "Error de red: ${error.message}", Toast.LENGTH_LONG).show()
-                }) {
-                override fun getParams(): MutableMap<String, String> {
-                    val params = HashMap<String, String>()
-                    params["nombre"] = nombre
-                    params["apellido"] = apellido
-                    params["correo_electronico"] = correo
-                    params["contrasena"] = contrasena
-                    params["fecha_de_nacimiento"] = fechaNacimiento
-                    return params
-                }
+            // Validar y formatear la fecha
+            val formattedFechaNacimiento = formatFecha(fechaNacimiento)
+            if (formattedFechaNacimiento == null) {
+                Toast.makeText(this, "Fecha de nacimiento inválida", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
 
-            Volley.newRequestQueue(this).add(request)
+            // Registro con Firebase
+            auth.createUserWithEmailAndPassword(correo, contrasena)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val user = auth.currentUser
+
+                        // Actualiza perfil (nombre completo)
+                        val profileUpdates = userProfileChangeRequest {
+                            displayName = "$nombre $apellido"
+                        }
+                        user?.updateProfile(profileUpdates)
+
+                        // Guardar datos en Firestore
+                        val userMap = hashMapOf(
+                            "nombre" to nombre,
+                            "apellido" to apellido,
+                            "correo_electronico" to correo,
+                            "fechaNacimiento" to fechaNacimiento // Cambiar de fecha_de_nacimiento a fechaNacimiento
+                        )
+
+                        val userId = user?.uid
+
+                        if (userId != null) {
+                            firestore.collection("usuarios").document(userId)
+                                .set(userMap)
+                                .addOnSuccessListener {
+                                    // Enviar correo de verificación
+                                    sendEmailVerification(user)
+
+                                    Toast.makeText(this, "Registro exitoso, por favor verifica tu correo.", Toast.LENGTH_LONG).show()
+                                    startActivity(Intent(this, LoginActivity::class.java))
+                                    finish()
+                                }
+                                .addOnFailureListener { e ->
+                                    Toast.makeText(this, "Error al guardar datos: ${e.message}", Toast.LENGTH_LONG).show()
+                                }
+                        }
+                    } else {
+                        Toast.makeText(this, "Error: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                    }
+                }
         }
+    }
+
+    // Función para validar y formatear la fecha
+    private fun formatFecha(fecha: String): String? {
+        val inputFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()) // Formato esperado
+        val outputFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()) // El formato que se va a guardar
+
+        return try {
+            val date = inputFormat.parse(fecha)
+            outputFormat.format(date)
+        } catch (e: Exception) {
+            null // Retorna null si la fecha es inválida
+        }
+    }
+
+    // Función para enviar un correo de verificación
+    private fun sendEmailVerification(user: FirebaseUser?) {
+        user?.sendEmailVerification()
+            ?.addOnSuccessListener {
+                Log.d("RegisterActivity", "Correo de verificación enviado a ${user.email}")
+            }
+            ?.addOnFailureListener { e ->
+                Log.e("RegisterActivity", "Error al enviar verificación: ${e.message}", e)
+            }
     }
 }
