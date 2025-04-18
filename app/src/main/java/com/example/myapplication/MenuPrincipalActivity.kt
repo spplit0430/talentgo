@@ -2,7 +2,6 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
@@ -11,13 +10,20 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MenuPrincipalActivity : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var btnMenu: ImageView
 
-    // Variables para almacenar los datos del usuario
+    // Firebase
+    private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+
+    // Datos del usuario
+    private var userId: String = ""
     private var nombre = ""
     private var apellido = ""
     private var correo = ""
@@ -30,9 +36,27 @@ class MenuPrincipalActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_principal)
 
-        // Inicializar el DrawerLayout y el botón del menú
+        // Inicializar Firebase
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+
+        // Validar sesión iniciada
+        val currentUser = auth.currentUser
+        if (currentUser == null) {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+            return
+        }
+
+        userId = currentUser.uid
+
+        // Referencias UI
         drawerLayout = findViewById(R.id.drawer_layout)
         btnMenu = findViewById(R.id.btn_menu)
+
+        val textoBienvenida = findViewById<TextView>(R.id.text_bienvenida)
+        val nombreLabel = findViewById<TextView>(R.id.nombre_label)
+        val apellidoLabel = findViewById<TextView>(R.id.apellido_label)
 
         btnMenu.setOnClickListener {
             if (!drawerLayout.isDrawerOpen(GravityCompat.END)) {
@@ -42,34 +66,46 @@ class MenuPrincipalActivity : AppCompatActivity() {
             }
         }
 
-        // Recibir los datos enviados desde LoginActivity o PerfilUsuarioActivity
-        nombre = intent.getStringExtra("nombre") ?: ""
-        apellido = intent.getStringExtra("apellido") ?: ""
-        correo = intent.getStringExtra("correo") ?: ""
-        fechaNacimiento = intent.getStringExtra("fechaNacimiento") ?: ""
+        // Cargar datos del usuario desde Firestore
+        firestore.collection("usuarios").document(userId).get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    nombre = document.getString("nombre") ?: ""
+                    apellido = document.getString("apellido") ?: ""
+                    correo = document.getString("correo_electronico") ?: ""
+                    fechaNacimiento = document.getString("fecha_de_nacimiento") ?: ""
 
-        // Mostrar el nombre en el TextView de bienvenida
-        val textoBienvenida = findViewById<TextView>(R.id.text_bienvenida)
-        textoBienvenida.text = "¡Bienvenido $nombre!"
+                    // Actualizar UI
+                    textoBienvenida.text = "¡Bienvenido $nombre!"
+                    nombreLabel.text = nombre
+                    apellidoLabel.text = apellido
+                }
+            }
 
-        // Inicializar el launcher para recibir resultados de PerfilUsuarioActivity
+        // Inicializar launcher para actualizar perfil
         perfilUsuarioLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
-            if (result.resultCode == RESULT_OK && result.data != null) {
-                // Actualizar datos con los que vienen desde PerfilUsuarioActivity
-                val data = result.data!!
-                nombre = data.getStringExtra("nombre") ?: ""
-                apellido = data.getStringExtra("apellido") ?: ""
-                correo = data.getStringExtra("correo") ?: ""
-                fechaNacimiento = data.getStringExtra("fechaNacimiento") ?: ""
+            if (result.resultCode == RESULT_OK) {
+                // Volver a cargar datos después de actualización
+                firestore.collection("usuarios").document(userId).get()
+                    .addOnSuccessListener { document ->
+                        if (document != null && document.exists()) {
+                            nombre = document.getString("nombre") ?: ""
+                            apellido = document.getString("apellido") ?: ""
+                            correo = document.getString("correo_electronico") ?: ""
+                            fechaNacimiento = document.getString("fecha_de_nacimiento") ?: ""
 
-                // Actualizar texto de bienvenida
-                textoBienvenida.text = "¡Bienvenido $nombre!"
+                            // Actualizar UI
+                            textoBienvenida.text = "¡Bienvenido $nombre!"
+                            nombreLabel.text = nombre
+                            apellidoLabel.text = apellido
+                        }
+                    }
             }
         }
 
-        // Botón USUARIO para ir a PerfilUsuarioActivity
+        // Botón para abrir perfil
         val btnUsuario = findViewById<TextView>(R.id.btn_usuario)
         btnUsuario.setOnClickListener {
             val intent = Intent(this, PerfilUsuarioActivity::class.java).apply {
@@ -81,14 +117,16 @@ class MenuPrincipalActivity : AppCompatActivity() {
             perfilUsuarioLauncher.launch(intent)
         }
 
-        // Botón para salir de sesión
+        // Botón para cerrar sesión
         val btnSalir = findViewById<ImageView>(R.id.salida_olvido2)
         btnSalir.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("¿Salir al inicio de sesión?")
             builder.setMessage("¿Estás seguro de que deseas cerrar sesión y volver al login?")
             builder.setPositiveButton("Sí") { _, _ ->
+                auth.signOut()
                 val intent = Intent(this, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
                 finish()
             }
