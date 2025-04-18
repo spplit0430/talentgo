@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
@@ -58,6 +59,7 @@ class MenuPrincipalActivity : AppCompatActivity() {
         val nombreLabel = findViewById<TextView>(R.id.nombre_label)
         val apellidoLabel = findViewById<TextView>(R.id.apellido_label)
 
+        // Abrir o cerrar el menú lateral
         btnMenu.setOnClickListener {
             if (!drawerLayout.isDrawerOpen(GravityCompat.END)) {
                 drawerLayout.openDrawer(GravityCompat.END)
@@ -117,9 +119,9 @@ class MenuPrincipalActivity : AppCompatActivity() {
             perfilUsuarioLauncher.launch(intent)
         }
 
-        // Botón para cerrar sesión
-        val btnSalir = findViewById<ImageView>(R.id.salida_olvido2)
-        btnSalir.setOnClickListener {
+        // Botón para cerrar sesión (salida_olvido2)
+        val btnSalir1 = findViewById<ImageView>(R.id.salida_olvido2)
+        btnSalir1.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("¿Salir al inicio de sesión?")
             builder.setMessage("¿Estás seguro de que deseas cerrar sesión y volver al login?")
@@ -130,10 +132,40 @@ class MenuPrincipalActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-            builder.setNegativeButton("Cancelar") { dialog, _ ->
-                dialog.dismiss()
-            }
+            builder.setNegativeButton("Cancelar") { dialog, _ -> dialog.dismiss() }
             builder.create().show()
+        }
+
+        // Botón para cerrar sesión (boton_derecho)
+        val btnCerrarSesion2 = findViewById<ImageView>(R.id.boton_derecho)
+        btnCerrarSesion2.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("¿Cerrar sesión?")
+            builder.setMessage("¿Estás seguro de que deseas cerrar sesión?")
+            builder.setPositiveButton("Sí") { _, _ ->
+                auth.signOut()
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()
+            }
+            builder.setNegativeButton("Cancelar") { dialog, _ -> dialog.dismiss() }
+            builder.create().show()
+        }
+
+        // Botón para ir a la vista de Vocación (TESTS)
+        val btnTests = findViewById<Button>(R.id.btn_tests)
+        btnTests.setOnClickListener {
+            val intent = Intent(this, VocacionActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Cerrar el menú lateral con el botón de salida (salida_olvido3)
+        val btnCerrarMenu = findViewById<ImageView>(R.id.salida_olvido3)
+        btnCerrarMenu.setOnClickListener {
+            if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                drawerLayout.closeDrawer(GravityCompat.END)
+            }
         }
     }
 }

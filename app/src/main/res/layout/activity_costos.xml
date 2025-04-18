@@ -66,28 +66,29 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Vocación"
+                        android:text="Costos"
                         android:textColor="#000000"
                         android:textSize="60sp"
                         android:textStyle="bold"
-                        android:layout_marginEnd="8dp"/>
+                        android:layout_marginEnd="45dp"/>
 
                     <ImageView
                         android:id="@+id/imageView"
                         android:layout_width="90dp"
                         android:layout_height="90dp"
-                        android:src="@drawable/brujula"
-                        android:contentDescription="Brújula"
+                        android:src="@drawable/costos"
+                        android:contentDescription="costos"
                         android:layout_gravity="center_vertical"/>
                 </LinearLayout>
 
                 <!-- Botón alineado a la izquierda -->
+
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:backgroundTint="#2DA9F3"
-                    android:text="Encuentra Tu Propósito"
+                    android:text="Tu Presupuesto Ideal"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textSize="15sp"
@@ -115,9 +116,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No hay respuestas equivocadas cuando se trata de descubrir quién eres y qué te apasiona. Cada pregunta que respondas es un paso hacia un futuro lleno de propósito y satisfacción.\n\nEl test es solo una brújula, pero el viaje es tuyo. ¡Ve con confianza y descubre lo que el mundo tiene reservado para ti!"
+                    android:text="Elegir una carrera no solo implica conocer tus habilidades y gustos, sino también entender los costos asociados a cada opción. En esta sección, encontrarás información detallada sobre los valores de matrícula, inscripciones y otros gastos clave en diferentes universidades."
                     android:gravity="center"
-                    android:textSize="20sp"
+                    android:textSize="23sp"
                     android:textStyle="bold"
                     android:textColor="#000000"
                     android:layout_marginBottom="32dp" />
@@ -150,20 +151,6 @@
         android:background="#884A708B"
         android:padding="16dp">
 
-        <!-- Botón de salida arriba a la derecha -->
-        <ImageView
-            android:id="@+id/salida_olvido3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="end"
-            android:src="@drawable/salida_menu"
-            android:contentDescription="Cerrar sesión"
-            android:padding="4dp"
-            android:layout_marginBottom="8dp"
-            android:clickable="true"
-            android:focusable="true" />
-
-        <!-- Logo -->
         <ImageView
             android:id="@+id/logo"
             android:layout_width="100dp"
@@ -172,7 +159,6 @@
             android:layout_marginTop="30dp"
             android:layout_gravity="center_horizontal" />
 
-        <!-- Perfil de usuario -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -191,141 +177,38 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/nombre_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nombre"
-                        android:textColor="#000000"
-                        android:textStyle="bold"
-                        android:textSize="22sp"
-                        android:layout_marginEnd="3dp" />
-
-                    <TextView
-                        android:id="@+id/apellido_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Apellido"
-                        android:textColor="#000000"
-                        android:textStyle="bold"
-                        android:textSize="22sp" />
-                </LinearLayout>
+                    android:text="David García"
+                    android:textStyle="bold"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/btn_usuario"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Usuario"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginTop="8dp" />
+                    android:text="Usuario" />
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Opciones del menú -->
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingVertical="12dp">
+            android:text="Tu Progreso"
+            android:paddingVertical="12dp" />
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="12dp"
-                android:src="@drawable/progreso" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tu Progreso"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingVertical="12dp">
+            android:text="Agendar Cita"
+            android:paddingVertical="12dp" />
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="12dp"
-                android:src="@drawable/cita" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Agendar Cita"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingVertical="12dp">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="12dp"
-                android:src="@drawable/universidades" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Aplicaciones a Universidades"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <!-- Espaciador para empujar los botones al fondo -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <!-- Botones en la parte inferior -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="12dp">
-
-            <!-- Botón inferior izquierdo -->
-            <ImageView
-                android:id="@+id/boton_izquierdo"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/herramientas"
-                android:contentDescription="Botón izquierdo"
-                android:clickable="true"
-                android:focusable="true" />
-
-            <!-- Espaciador flexible -->
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <!-- Botón inferior derecho -->
-            <ImageView
-                android:id="@+id/boton_derecho2"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/salida"
-                android:contentDescription="Botón derecho"
-                android:clickable="true"
-                android:focusable="true" />
-        </LinearLayout>
+            android:text="Aplicaciones a Universidades"
+            android:paddingVertical="12dp" />
     </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>
