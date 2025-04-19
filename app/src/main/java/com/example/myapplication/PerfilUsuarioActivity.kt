@@ -70,46 +70,11 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         nombreLabel = findViewById(R.id.nombre_label)
         apellidoLabel = findViewById(R.id.apellido_label)
 
-        // Obtener datos del usuario desde Firestore
-        val userId = auth.currentUser?.uid
-
-        if (userId != null) {
-            db.collection("usuarios").document(userId).get()
-                .addOnSuccessListener { document ->
-                    if (document.exists()) {
-                        val nombre = document.getString("nombre") ?: ""
-                        val apellido = document.getString("apellido") ?: ""
-                        val correo = document.getString("correo_electronico") ?: ""
-                        val fechaNacimientoString = document.getString("fechaNacimiento") ?: ""
-
-                        // Convertir fecha de String a un formato adecuado
-                        val dateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
-                        var fechaNacimiento: String
-                        try {
-                            val date = dateFormat.parse(fechaNacimientoString)
-                            val displayFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                            fechaNacimiento = displayFormat.format(date)
-                        } catch (e: Exception) {
-                            fechaNacimiento = "Fecha inválida"
-                        }
-
-                        // Actualizar los campos con los datos recuperados
-                        nombreText.setText(nombre)
-                        apellidoText.setText(apellido)
-                        correoText.setText(correo)
-                        fechaNacimientoText.setText(fechaNacimiento)
-
-                        nombreLabel.text = nombre
-                        apellidoLabel.text = apellido
-                    } else {
-                        Toast.makeText(this, "No se encontró el perfil", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                .addOnFailureListener {
-                    Toast.makeText(this, "Error al cargar perfil", Toast.LENGTH_SHORT).show()
-                }
-        } else {
-            Toast.makeText(this, "Usuario no autenticado", Toast.LENGTH_SHORT).show()
+        // Recargar usuario para reflejar cambios recientes
+        auth.currentUser?.reload()?.addOnSuccessListener {
+            cargarPerfilUsuario()
+        }?.addOnFailureListener {
+            Toast.makeText(this, "Error actualizando sesión", Toast.LENGTH_SHORT).show()
             finish()
         }
 
@@ -136,6 +101,47 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                 putExtra("fechaNacimiento", fechaNacimientoText.text.toString())
             }
             actualizarUsuarioLauncher.launch(intent)
+        }
+    }
+
+    private fun cargarPerfilUsuario() {
+        val userId = auth.currentUser?.uid
+        val correoActualizado = auth.currentUser?.email
+
+        if (userId != null && correoActualizado != null) {
+            db.collection("usuarios").document(userId).get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        val nombre = document.getString("nombre") ?: ""
+                        val apellido = document.getString("apellido") ?: ""
+                        val fechaNacimientoString = document.getString("fechaNacimiento") ?: ""
+
+                        val dateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
+                        val fechaNacimiento = try {
+                            val date = dateFormat.parse(fechaNacimientoString)
+                            val displayFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                            displayFormat.format(date)
+                        } catch (e: Exception) {
+                            "Fecha inválida"
+                        }
+
+                        nombreText.setText(nombre)
+                        apellidoText.setText(apellido)
+                        correoText.setText(correoActualizado)
+                        fechaNacimientoText.setText(fechaNacimiento)
+
+                        nombreLabel.text = nombre
+                        apellidoLabel.text = apellido
+                    } else {
+                        Toast.makeText(this, "No se encontró el perfil", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Error al cargar perfil", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            Toast.makeText(this, "Usuario no autenticado", Toast.LENGTH_SHORT).show()
+            finish()
         }
     }
 }

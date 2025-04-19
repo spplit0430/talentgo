@@ -48,13 +48,19 @@ class LoginActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(correo, contrasena)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
                         val user = auth.currentUser
-                        val intent = Intent(this, MenuPrincipalActivity::class.java).apply {
-                            putExtra("correo", user?.email)
+                        if (user != null && user.isEmailVerified) {
+                            // Si el correo está verificado, permite el login
+                            Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this, MenuPrincipalActivity::class.java).apply {
+                                putExtra("correo", user.email)
+                            }
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            // Si el correo no está verificado
+                            Toast.makeText(this, "Por favor, verifica tu correo antes de iniciar sesión.", Toast.LENGTH_LONG).show()
                         }
-                        startActivity(intent)
-                        finish()
                     } else {
                         Toast.makeText(this, "Error: ${task.exception?.message}", Toast.LENGTH_LONG).show()
                     }
