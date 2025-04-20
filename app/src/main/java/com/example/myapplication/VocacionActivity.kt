@@ -53,5 +53,12 @@ class VocacionActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        // Botón para comenzar preguntas de vocación
+        val btnComenzar = findViewById<Button>(R.id.btn_comenzar)
+        btnComenzar.setOnClickListener {
+            val intent = Intent(this, VocacionPreguntasActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

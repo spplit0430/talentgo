@@ -4,12 +4,12 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import android.util.Log
 
 class ActualizarUsuarioActivity : AppCompatActivity() {
 
@@ -53,9 +53,7 @@ class ActualizarUsuarioActivity : AppCompatActivity() {
                     "fecha_de_nacimiento" to nuevaFechaNacimiento
                 )
 
-                // ⚠️ Solo si el correo cambió
                 if (nuevoCorreo != correoActual) {
-                    // Pedir contraseña para reautenticación
                     val input = EditText(this).apply {
                         inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
                         hint = "Contraseña actual"
@@ -75,17 +73,21 @@ class ActualizarUsuarioActivity : AppCompatActivity() {
                                         Log.d("ActualizarUsuario", "Correo nuevo: $nuevoCorreo, verificación enviada.")
                                         Toast.makeText(this, "Verificación enviada a $nuevoCorreo. Debes confirmarla para completar el cambio.", Toast.LENGTH_LONG).show()
 
-                                        // Actualizar Firestore excepto correo (se actualiza después de verificación)
+                                        // 🔁 Actualizar Firestore con el nuevo correo también
+                                        val datosActualizados = userMap + ("correo_electronico" to nuevoCorreo)
                                         db.collection("usuarios").document(user.uid)
-                                            .update(userMap)
+                                            .update(datosActualizados)
                                             .addOnSuccessListener {
-                                                Log.d("ActualizarUsuario", "Datos actualizados (excepto correo).")
+                                                Log.d("ActualizarUsuario", "Datos actualizados en Firestore (incluyendo correo).")
 
-                                                // Redirigir al LoginActivity después de enviar la verificación
                                                 val intent = Intent(this, LoginActivity::class.java)
                                                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
                                                 startActivity(intent)
                                                 finish()
+                                            }
+                                            .addOnFailureListener { e ->
+                                                Log.e("ActualizarUsuario", "Error actualizando Firestore: ${e.message}", e)
+                                                Toast.makeText(this, "Error al guardar cambios en Firestore", Toast.LENGTH_SHORT).show()
                                             }
                                     }
                                     .addOnFailureListener { e ->
@@ -100,10 +102,9 @@ class ActualizarUsuarioActivity : AppCompatActivity() {
                         .setNegativeButton("Cancelar", null)
                         .show()
                 } else {
-                    // Si no se cambia el correo, solo actualiza los demás datos
-                    userMap.plus("correo_electronico" to correoActual) // por si quieres mantenerlo igual en Firestore
+                    val datosActualizados = userMap + ("correo_electronico" to correoActual)
                     db.collection("usuarios").document(user.uid)
-                        .update(userMap)
+                        .update(datosActualizados)
                         .addOnSuccessListener {
                             Toast.makeText(this, "Datos actualizados", Toast.LENGTH_SHORT).show()
 

@@ -26,6 +26,26 @@
         <activity android:name=".PerfilUsuarioActivity" />
         <activity android:name=".ActualizarUsuarioActivity" />
         <activity android:name=".VocacionActivity" />
+        <activity android:name=".UniversidadesActivity" />
+        <activity android:name=".CostosActivity" />
+        <activity android:name=".VocacionPreguntasActivity" />
+        <activity android:name=".VocacionPregunta2Activity" />
+        <activity android:name=".VocacionPregunta3Activity" />
+        <activity android:name=".VocacionPregunta4Activity" />
+        <activity android:name=".VocacionPregunta5Activity" />
+        <activity android:name=".VocacionPregunta6Activity" />
+        <activity android:name=".VocacionPregunta7Activity" />
+        <activity android:name=".VocacionPregunta8Activity" />
+        <activity android:name=".VocacionPregunta9Activity" />
+        <activity android:name=".VocacionPregunta10Activity" />
+        <activity android:name=".ResultadoVocacionalActivity" />
+        <activity android:name=".ContinuaVocacionalActivity" />
+
+
+
+
+
+
 
 
 

@@ -167,5 +167,16 @@ class MenuPrincipalActivity : AppCompatActivity() {
                 drawerLayout.closeDrawer(GravityCompat.END)
             }
         }
+        // Botón para ir a la vista de Universidades
+        val btnConoce = findViewById<Button>(R.id.btn_conoce)
+        btnConoce.setOnClickListener {
+            val intent = Intent(this, UniversidadesActivity::class.java)
+            startActivity(intent)
+        }
+        val botonPlanea = findViewById<Button>(R.id.btn_planea)
+        botonPlanea.setOnClickListener {
+            val intent = Intent(this, CostosActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
