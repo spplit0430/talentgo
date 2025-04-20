@@ -14,8 +14,8 @@
         <!-- ENCABEZADO BLANCO -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="249dp"
-            android:background="#FFFFFF"
+            android:layout_height="200dp"
+            android:background="@drawable/rounded_bottom_universidades"
             android:elevation="4dp"
             android:orientation="vertical"
             android:padding="16dp">

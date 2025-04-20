@@ -119,7 +119,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                         val dateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
                         val fechaNacimiento = try {
                             val date = dateFormat.parse(fechaNacimientoString)
-                            val displayFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                            val displayFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
                             displayFormat.format(date)
                         } catch (e: Exception) {
                             "Fecha inválida"

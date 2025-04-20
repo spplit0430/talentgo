@@ -40,6 +40,8 @@
         <activity android:name=".VocacionPregunta10Activity" />
         <activity android:name=".ResultadoVocacionalActivity" />
         <activity android:name=".ContinuaVocacionalActivity" />
+        <activity android:name=".UniversidadesPregunta1Activity" />
+
 
 
 

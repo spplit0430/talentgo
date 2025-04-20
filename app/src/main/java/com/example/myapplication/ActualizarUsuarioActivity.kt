@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ActualizarUsuarioActivity : AppCompatActivity() {
 
@@ -46,11 +48,18 @@ class ActualizarUsuarioActivity : AppCompatActivity() {
             val nuevaFechaNacimiento = fechaNacimientoText.text.toString().trim()
             val user = auth.currentUser
 
+            // Validar y formatear la fecha
+            val formattedFechaNacimiento = formatFecha(nuevaFechaNacimiento)
+            if (formattedFechaNacimiento == null) {
+                Toast.makeText(this, "Fecha de nacimiento inválida", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             if (user != null) {
                 val userMap = mapOf(
                     "nombre" to nuevoNombre,
                     "apellido" to nuevoApellido,
-                    "fecha_de_nacimiento" to nuevaFechaNacimiento
+                    "fechaNacimiento" to formattedFechaNacimiento
                 )
 
                 if (nuevoCorreo != correoActual) {
@@ -112,7 +121,7 @@ class ActualizarUsuarioActivity : AppCompatActivity() {
                                 putExtra("nombre", nuevoNombre)
                                 putExtra("apellido", nuevoApellido)
                                 putExtra("correo", correoActual)
-                                putExtra("fechaNacimiento", nuevaFechaNacimiento)
+                                putExtra("fechaNacimiento", formattedFechaNacimiento)
                             }
 
                             setResult(RESULT_OK, resultIntent)
@@ -130,6 +139,24 @@ class ActualizarUsuarioActivity : AppCompatActivity() {
 
         findViewById<ImageView>(R.id.salida_olvido2).setOnClickListener {
             finish()
+        }
+    }
+
+    // Método para formatear y validar la fecha
+    private fun formatFecha(fecha: String): String? {
+        val formatoEntrada = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
+        formatoEntrada.isLenient = false
+        return try {
+            val fechaFormateada = formatoEntrada.parse(fecha)
+            if (fechaFormateada != null) {
+                // La fecha es válida, la devolvemos en el formato correcto
+                val formatoSalida = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
+                formatoSalida.format(fechaFormateada)
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            null
         }
     }
 }

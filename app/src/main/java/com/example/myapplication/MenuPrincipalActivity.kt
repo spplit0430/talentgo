@@ -75,7 +75,7 @@ class MenuPrincipalActivity : AppCompatActivity() {
                     nombre = document.getString("nombre") ?: ""
                     apellido = document.getString("apellido") ?: ""
                     correo = document.getString("correo_electronico") ?: ""
-                    fechaNacimiento = document.getString("fecha_de_nacimiento") ?: ""
+                    fechaNacimiento = document.getString("fechaNacimiento") ?: ""
 
                     // Actualizar UI
                     textoBienvenida.text = "¡Bienvenido $nombre!"
@@ -96,7 +96,7 @@ class MenuPrincipalActivity : AppCompatActivity() {
                             nombre = document.getString("nombre") ?: ""
                             apellido = document.getString("apellido") ?: ""
                             correo = document.getString("correo_electronico") ?: ""
-                            fechaNacimiento = document.getString("fecha_de_nacimiento") ?: ""
+                            fechaNacimiento = document.getString("fechaNacimiento") ?: ""
 
                             // Actualizar UI
                             textoBienvenida.text = "¡Bienvenido $nombre!"
@@ -110,13 +110,24 @@ class MenuPrincipalActivity : AppCompatActivity() {
         // Botón para abrir perfil
         val btnUsuario = findViewById<TextView>(R.id.btn_usuario)
         btnUsuario.setOnClickListener {
-            val intent = Intent(this, PerfilUsuarioActivity::class.java).apply {
-                putExtra("nombre", nombre)
-                putExtra("apellido", apellido)
-                putExtra("correo", correo)
-                putExtra("fechaNacimiento", fechaNacimiento)
-            }
-            perfilUsuarioLauncher.launch(intent)
+            // Siempre cargar los datos más recientes de Firestore antes de enviar a PerfilUsuarioActivity
+            firestore.collection("usuarios").document(userId).get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        nombre = document.getString("nombre") ?: ""
+                        apellido = document.getString("apellido") ?: ""
+                        correo = document.getString("correo_electronico") ?: ""
+                        fechaNacimiento = document.getString("fechaNacimiento") ?: ""
+
+                        val intent = Intent(this, PerfilUsuarioActivity::class.java).apply {
+                            putExtra("nombre", nombre)
+                            putExtra("apellido", apellido)
+                            putExtra("correo", correo)
+                            putExtra("fechaNacimiento", fechaNacimiento) // Siempre enviar la fecha más reciente
+                        }
+                        perfilUsuarioLauncher.launch(intent)
+                    }
+                }
         }
 
         // Botón para cerrar sesión (salida_olvido2)
