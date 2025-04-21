@@ -90,7 +90,7 @@
             android:background="@drawable/edit_text_usuario"
             android:padding="8dp"
             android:textSize="17sp"
-            android:hint="David"
+            android:hint=""
             android:gravity="center"/>
 
         <EditText
@@ -101,7 +101,7 @@
             android:background="@drawable/edit_text_usuario"
             android:padding="8dp"
             android:textSize="17sp"
-            android:hint="Garcia"
+            android:hint=""
             android:gravity="center"/>
 
         <EditText
@@ -112,7 +112,7 @@
             android:background="@drawable/edit_text_usuario"
             android:padding="8dp"
             android:textSize="17sp"
-            android:hint="David@hotmail.com"
+            android:hint=""
             android:gravity="center"/>
 
 
@@ -124,7 +124,7 @@
             android:background="@drawable/edit_text_usuario"
             android:padding="8dp"
             android:textSize="17sp"
-            android:hint="02/12/2000"
+            android:hint=""
             android:gravity="center"/>
 
         <!-- Botón negro centrado -->

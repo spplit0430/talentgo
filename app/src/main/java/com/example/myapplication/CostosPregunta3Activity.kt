@@ -7,34 +7,32 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class UniversidadesPregunta2Activity : AppCompatActivity() {
+class CostosPregunta3Activity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_universidades_pregunta2)
+        setContentView(R.layout.activity_costos_pregunta3) // Asegúrate que el XML tenga este nombre
 
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
         val currentUser = auth.currentUser
         if (currentUser == null) {
-            finish() // o redirige al login si no hay sesión
+            finish()
             return
         }
 
-        // Asegúrate que estos IDs estén bien puestos en el XML
-        val opcion1 = findViewById<Button>(R.id.button_publica)
-        val opcion2 = findViewById<Button>(R.id.button_privada)
-        val opcion3 = findViewById<Button>(R.id.button_online)
-        val opcion4 = findViewById<Button>(R.id.button_sin_preferencia)
+        // Botones de respuesta
+        val opcion1 = findViewById<Button>(R.id.btn_opcion1)
+        val opcion2 = findViewById<Button>(R.id.btn_opcion2)
+        val opcion3 = findViewById<Button>(R.id.btn_opcion3)
 
-        opcion1.setOnClickListener { guardarRespuestaYAvanzar("Pública") }
-        opcion2.setOnClickListener { guardarRespuestaYAvanzar("Privada") }
-        opcion3.setOnClickListener { guardarRespuestaYAvanzar("Online") }
-        opcion4.setOnClickListener { guardarRespuestaYAvanzar("No tengo preferencia") }
+        opcion1.setOnClickListener { guardarRespuestaYAvanzar(opcion1.text.toString()) }
+        opcion2.setOnClickListener { guardarRespuestaYAvanzar(opcion2.text.toString()) }
+        opcion3.setOnClickListener { guardarRespuestaYAvanzar(opcion3.text.toString()) }
     }
 
     private fun guardarRespuestaYAvanzar(respuesta: String) {
@@ -44,18 +42,18 @@ class UniversidadesPregunta2Activity : AppCompatActivity() {
             "respuesta" to respuesta
         )
 
-        firestore.collection("respuestas_universidades")
+        firestore.collection("costos_respuestas")
             .document(userId)
             .collection("preguntas")
-            .document("pregunta2")
+            .document("pregunta3")
             .set(respuestaData)
             .addOnSuccessListener {
-                val intent = Intent(this, UniversidadesPregunta3Activity::class.java)
+                val intent = Intent(this, CostosPregunta4Activity::class.java)
                 startActivity(intent)
                 finish()
             }
             .addOnFailureListener { e ->
-                e.printStackTrace() // Puedes mostrar un Toast o diálogo
+                e.printStackTrace()
             }
     }
 }

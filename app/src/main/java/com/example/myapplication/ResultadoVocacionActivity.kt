@@ -79,11 +79,7 @@ class ResultadoVocacionalActivity : AppCompatActivity() {
                         "Te gusta dirigir, emprender y asumir retos. Podrías encajar en Administración, Economía o Marketing.",
                         R.drawable.vocacion4
                     )
-                    else -> mostrarResultado(
-                        "Perfil General",
-                        "Aún no hay suficiente información para definir tu perfil. Te animamos a seguir explorando.",
-                        R.drawable.logo
-                    )
+                    else -> throw IllegalArgumentException("Perfil vocacional desconocido: $perfilDominante")
                 }
             }
 

@@ -7,14 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class UniversidadesPregunta2Activity : AppCompatActivity() {
+class UniversidadesPregunta3Activity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_universidades_pregunta2)
+        setContentView(R.layout.activity_universidades_pregunta3)
 
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
@@ -25,16 +25,15 @@ class UniversidadesPregunta2Activity : AppCompatActivity() {
             return
         }
 
-        // Asegúrate que estos IDs estén bien puestos en el XML
-        val opcion1 = findViewById<Button>(R.id.button_publica)
-        val opcion2 = findViewById<Button>(R.id.button_privada)
-        val opcion3 = findViewById<Button>(R.id.button_online)
-        val opcion4 = findViewById<Button>(R.id.button_sin_preferencia)
+        val opcion1 = findViewById<Button>(R.id.button_ciencias)
+        val opcion2 = findViewById<Button>(R.id.button_artes)
+        val opcion3 = findViewById<Button>(R.id.button_negocios)
+        val opcion4 = findViewById<Button>(R.id.button_salud)
 
-        opcion1.setOnClickListener { guardarRespuestaYAvanzar("Pública") }
-        opcion2.setOnClickListener { guardarRespuestaYAvanzar("Privada") }
-        opcion3.setOnClickListener { guardarRespuestaYAvanzar("Online") }
-        opcion4.setOnClickListener { guardarRespuestaYAvanzar("No tengo preferencia") }
+        opcion1.setOnClickListener { guardarRespuestaYAvanzar("Ciencias e ingeniería") }
+        opcion2.setOnClickListener { guardarRespuestaYAvanzar("Artes y humanidades") }
+        opcion3.setOnClickListener { guardarRespuestaYAvanzar("Negocios y economía") }
+        opcion4.setOnClickListener { guardarRespuestaYAvanzar("Salud y medicina") }
     }
 
     private fun guardarRespuestaYAvanzar(respuesta: String) {
@@ -47,15 +46,15 @@ class UniversidadesPregunta2Activity : AppCompatActivity() {
         firestore.collection("respuestas_universidades")
             .document(userId)
             .collection("preguntas")
-            .document("pregunta2")
+            .document("pregunta3")
             .set(respuestaData)
             .addOnSuccessListener {
-                val intent = Intent(this, UniversidadesPregunta3Activity::class.java)
+                val intent = Intent(this, UniversidadesPregunta4Activity::class.java)
                 startActivity(intent)
                 finish()
             }
             .addOnFailureListener { e ->
-                e.printStackTrace() // Puedes mostrar un Toast o diálogo
+                e.printStackTrace()
             }
     }
 }

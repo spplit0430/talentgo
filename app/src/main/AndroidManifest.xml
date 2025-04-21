@@ -41,6 +41,18 @@
         <activity android:name=".ResultadoVocacionalActivity" />
         <activity android:name=".ContinuaVocacionalActivity" />
         <activity android:name=".UniversidadesPregunta1Activity" />
+        <activity android:name=".UniversidadesPregunta2Activity" />
+        <activity android:name=".UniversidadesPregunta3Activity" />
+        <activity android:name=".UniversidadesPregunta4Activity" />
+        <activity android:name=".ResultadoUniversidadActivity" />
+        <activity android:name=".ContinuaUniversidadesActivity" />
+        <activity android:name=".CostosPregunta1Activity" />
+        <activity android:name=".CostosPregunta2Activity" />
+        <activity android:name=".CostosPregunta3Activity" />
+        <activity android:name=".CostosPregunta4Activity" />
+        <activity android:name=".CostosPregunta5Activity" />
+        <activity android:name=".CostosPregunta6Activity" />
+        <activity android:name=".ResultadoCostoActivity" />
 
 
 
