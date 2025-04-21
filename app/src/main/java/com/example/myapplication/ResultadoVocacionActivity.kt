@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -45,6 +46,7 @@ class ResultadoVocacionalActivity : AppCompatActivity() {
                     "empresarial" to 0
                 )
 
+                // Calcular las respuestas
                 for (doc in result) {
                     val respuesta = doc.getString("respuesta") ?: continue
 
@@ -56,6 +58,7 @@ class ResultadoVocacionalActivity : AppCompatActivity() {
                     }
                 }
 
+                // Mostrar los resultados vocacionales
                 val perfilDominante = conteo.maxByOrNull { it.value }?.key
 
                 when (perfilDominante) {
@@ -81,14 +84,41 @@ class ResultadoVocacionalActivity : AppCompatActivity() {
                     )
                     else -> throw IllegalArgumentException("Perfil vocacional desconocido: $perfilDominante")
                 }
-            }
 
-        finalizarBtn.setOnClickListener {
-            // Crear un Intent para redirigir a la actividad ContinuaVocacionalActivity
-            val intent = Intent(this, ContinuaVocacionalActivity::class.java)
-            startActivity(intent) // Iniciar la actividad
-            finish() // Finalizar la actividad actual (opcional, si no quieres que el usuario regrese a esta pantalla al presionar el botón de retroceso)
-        }
+                // Enviar los resultados al gráfico en la siguiente actividad
+                val intent = Intent(this, MetricasTuProgresoActivity::class.java).apply {
+                    putExtra("cientifico", conteo["cientifico"] ?: 0)
+                    putExtra("artistico", conteo["artistico"] ?: 0)
+                    putExtra("social", conteo["social"] ?: 0)
+                    putExtra("empresarial", conteo["empresarial"] ?: 0)
+                }
+
+                // Guardar los resultados en Firestore para que se mantengan actualizados
+                firestore.collection("metricas_vocacionales")
+                    .document(userId)
+                    .set(conteo)
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "Resultados guardados correctamente", Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnFailureListener { exception ->
+                        Toast.makeText(this, "Error al guardar los resultados: ${exception.localizedMessage}", Toast.LENGTH_SHORT).show()
+                    }
+
+                // Configurar el botón para redirigir al siguiente Activity
+                finalizarBtn.setOnClickListener {
+                    // Redirigir a Métricas
+                    startActivity(intent)  // Redirigir a la actividad de Métricas
+                    finish()  // Finalizar la actividad actual
+
+                    // También puedes redirigir a otra actividad si lo deseas
+                    val continuaIntent = Intent(this, ContinuaVocacionalActivity::class.java)
+                    startActivity(continuaIntent)  // Redirigir a la vista de continua_vocacion
+                    finish()  // Finalizar esta actividad también
+                }
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, "Error al obtener datos: ${exception.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun mostrarResultado(titulo: String, desc: String, imagenRes: Int) {

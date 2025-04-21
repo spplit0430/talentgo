@@ -189,5 +189,10 @@ class MenuPrincipalActivity : AppCompatActivity() {
             val intent = Intent(this, CostosActivity::class.java)
             startActivity(intent)
         }
+        val btnComenzar = findViewById<Button>(R.id.btn_visualiza)
+        btnComenzar.setOnClickListener {
+            val intent = Intent(this, TuProgresoActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

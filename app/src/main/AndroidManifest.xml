@@ -53,6 +53,10 @@
         <activity android:name=".CostosPregunta5Activity" />
         <activity android:name=".CostosPregunta6Activity" />
         <activity android:name=".ResultadoCostoActivity" />
+        <activity android:name=".ContinuaCostosActivity" />
+        <activity android:name=".TuProgresoActivity" />
+        <activity android:name=".MetricasTuProgresoActivity" />
+
 
 
 

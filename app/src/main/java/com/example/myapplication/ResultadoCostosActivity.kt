@@ -96,7 +96,7 @@ class ResultadoCostoActivity : AppCompatActivity() {
 
         finalizarBtn.setOnClickListener {
             // Crear un Intent para redirigir a la actividad principal
-            val intent = Intent(this, MenuPrincipalActivity::class.java)
+            val intent = Intent(this, ContinuaCostosActivity::class.java)
             startActivity(intent)
             finish()
         }

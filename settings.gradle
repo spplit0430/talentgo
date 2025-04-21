@@ -9,13 +9,16 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
+        maven { url 'https://jitpack.io' } // 👉 Añadido aquí por compatibilidad con algunos plugins
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' } // 👉 Añadido aquí para que encuentre MPAndroidChart
     }
 }
 
