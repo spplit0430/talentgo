@@ -43,17 +43,27 @@ class MetricasTuProgresoActivity : AppCompatActivity() {
                     entries.add(PieEntry(social.toFloat(), "Social"))
                     entries.add(PieEntry(empresarial.toFloat(), "Empresarial"))
 
-                    // Configurar el conjunto de datos del gráfico
+                    // Configurar el conjunto de datos del gráfico con nuevos colores
                     val dataSet = PieDataSet(entries, "Perfil Vocacional")
                     dataSet.colors = listOf(
-                        Color.BLUE, Color.RED, Color.GREEN, Color.MAGENTA
+                        Color.parseColor("#4CAF50"),  // Verde – Científico
+                        Color.parseColor("#FF9800"),  // Naranja – Artístico
+                        Color.parseColor("#2196F3"),  // Azul – Social
+                        Color.parseColor("#9C27B0")   // Morado – Empresarial
                     )
 
-                    // Crear los datos del gráfico
+                    // Configurar estilo de texto en el gráfico
                     val data = PieData(dataSet)
+                    data.setValueTextSize(9f)
+                    data.setValueTextColor(Color.WHITE)
+
+                    // Aplicar los datos al gráfico y configurar el estilo visual
                     pieChart.data = data
                     pieChart.description.isEnabled = false
-                    pieChart.invalidate() // Refrescar el gráfico para que se vea actualizado
+                    pieChart.legend.textSize = 9f
+                    pieChart.setEntryLabelColor(Color.BLACK)
+                    pieChart.setEntryLabelTextSize(9f)
+                    pieChart.invalidate() // Refrescar el gráfico para mostrar los datos
                 } else {
                     Toast.makeText(this, "No se encontraron datos de métricas.", Toast.LENGTH_SHORT).show()
                 }
