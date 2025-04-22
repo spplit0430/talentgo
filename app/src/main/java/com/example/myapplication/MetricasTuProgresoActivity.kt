@@ -13,64 +13,114 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class MetricasTuProgresoActivity : AppCompatActivity() {
 
-    private lateinit var pieChart: PieChart
+    private lateinit var pieChartVocacional: PieChart
+    private lateinit var pieChartUniversidades: PieChart
     private val firestore = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tuprogreso_metricas)
 
-        pieChart = findViewById(R.id.pieChartVocacional)
+        pieChartVocacional = findViewById(R.id.pieChartVocacional)
+        pieChartUniversidades = findViewById(R.id.pieChartUniversidades)
 
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
 
-        // Obtener los datos de Firestore
+        // Obtener las métricas vocacionales
         firestore.collection("metricas_vocacionales")
             .document(userId)
             .get()
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
-                    // Recuperar los valores de Firestore
                     val cientifico = document.getLong("cientifico")?.toInt() ?: 0
                     val artistico = document.getLong("artistico")?.toInt() ?: 0
                     val social = document.getLong("social")?.toInt() ?: 0
                     val empresarial = document.getLong("empresarial")?.toInt() ?: 0
 
-                    // Crear la lista de entradas para la gráfica
-                    val entries = mutableListOf<PieEntry>()
-                    entries.add(PieEntry(cientifico.toFloat(), "Científico"))
-                    entries.add(PieEntry(artistico.toFloat(), "Artístico"))
-                    entries.add(PieEntry(social.toFloat(), "Social"))
-                    entries.add(PieEntry(empresarial.toFloat(), "Empresarial"))
+                    val entriesVocacional = mutableListOf<PieEntry>()
+                    entriesVocacional.add(PieEntry(cientifico.toFloat(), "Científico"))
+                    entriesVocacional.add(PieEntry(artistico.toFloat(), "Artístico"))
+                    entriesVocacional.add(PieEntry(social.toFloat(), "Social"))
+                    entriesVocacional.add(PieEntry(empresarial.toFloat(), "Empresarial"))
 
-                    // Configurar el conjunto de datos del gráfico con nuevos colores
-                    val dataSet = PieDataSet(entries, "Perfil Vocacional")
-                    dataSet.colors = listOf(
+                    val dataSetVocacional = PieDataSet(entriesVocacional, "PERFIL")
+                    dataSetVocacional.colors = listOf(
                         Color.parseColor("#4CAF50"),  // Verde – Científico
                         Color.parseColor("#FF9800"),  // Naranja – Artístico
                         Color.parseColor("#2196F3"),  // Azul – Social
                         Color.parseColor("#9C27B0")   // Morado – Empresarial
                     )
 
-                    // Configurar estilo de texto en el gráfico
-                    val data = PieData(dataSet)
-                    data.setValueTextSize(9f)
-                    data.setValueTextColor(Color.WHITE)
+                    val dataVocacional = PieData(dataSetVocacional)
+                    dataVocacional.setValueTextSize(9f)
+                    dataVocacional.setValueTextColor(Color.WHITE)
 
-                    // Aplicar los datos al gráfico y configurar el estilo visual
-                    pieChart.data = data
-                    pieChart.description.isEnabled = false
-                    pieChart.legend.textSize = 9f
-                    pieChart.setEntryLabelColor(Color.BLACK)
-                    pieChart.setEntryLabelTextSize(9f)
-                    pieChart.invalidate() // Refrescar el gráfico para mostrar los datos
+                    pieChartVocacional.data = dataVocacional
+                    pieChartVocacional.description.isEnabled = false
+                    pieChartVocacional.legend.textSize = 9f
+                    pieChartVocacional.setEntryLabelColor(Color.BLACK)
+                    pieChartVocacional.setEntryLabelTextSize(9f)
+                    pieChartVocacional.invalidate()
                 } else {
-                    Toast.makeText(this, "No se encontraron datos de métricas.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "No se encontraron datos de métricas vocacionales.", Toast.LENGTH_SHORT).show()
                 }
             }
             .addOnFailureListener { exception ->
-                // Manejar el error si no se pueden recuperar los datos
-                Toast.makeText(this, "Error al recuperar los datos: ${exception.localizedMessage}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error al recuperar los datos de vocación: ${exception.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+
+        // Obtener las métricas de universidades
+        firestore.collection("metricas_universidades")
+            .document(userId)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    // Recuperar las métricas para universidades
+                    val prestigio = document.getLong("prestigio")?.toInt() ?: 0
+                    val publica = document.getLong("publica")?.toInt() ?: 0
+                    val privada = document.getLong("privada")?.toInt() ?: 0
+                    val online = document.getLong("online")?.toInt() ?: 0
+                    val costo = document.getLong("costo")?.toInt() ?: 0
+                    val flexible = document.getLong("flexible")?.toInt() ?: 0
+
+                    // Crear las entradas para el gráfico de pastel (PieChart)
+                    val entriesUniversidades = mutableListOf<PieEntry>()
+                    entriesUniversidades.add(PieEntry(prestigio.toFloat(), "Prestigio"))
+                    entriesUniversidades.add(PieEntry(publica.toFloat(), "Pública"))
+                    entriesUniversidades.add(PieEntry(privada.toFloat(), "Privada"))
+                    entriesUniversidades.add(PieEntry(online.toFloat(), "Online"))
+                    entriesUniversidades.add(PieEntry(costo.toFloat(), "Costo"))
+                    entriesUniversidades.add(PieEntry(flexible.toFloat(), "Flexible"))
+
+                    // Configuración del gráfico de pastel
+                    val dataSetUniversidades = PieDataSet(entriesUniversidades, "PERFIL")
+                    dataSetUniversidades.colors = listOf(
+                        Color.parseColor("#FF5722"),  // Naranja – Prestigio
+                        Color.parseColor("#4CAF50"),  // Verde – Pública
+                        Color.parseColor("#2196F3"),  // Azul – Privada
+                        Color.parseColor("#9C27B0"),  // Morado – Online
+                        Color.parseColor("#FFEB3B"),  // Amarillo – Costo
+                        Color.parseColor("#8BC34A")   // Verde Claro – Flexible
+                    )
+
+                    val dataUniversidades = PieData(dataSetUniversidades)
+                    dataUniversidades.setValueTextSize(9f)
+                    dataUniversidades.setValueTextColor(Color.WHITE)
+
+                    // Asignar los datos al gráfico
+                    pieChartUniversidades.data = dataUniversidades
+                    pieChartUniversidades.description.isEnabled = false
+                    pieChartUniversidades.legend.textSize = 9f
+                    pieChartUniversidades.setEntryLabelColor(Color.BLACK)
+                    pieChartUniversidades.setEntryLabelTextSize(9f)
+                    pieChartUniversidades.invalidate()
+                } else {
+                    Toast.makeText(this, "No se encontraron datos de métricas de universidades.", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, "Error al recuperar los datos de universidades: ${exception.localizedMessage}", Toast.LENGTH_SHORT).show()
             }
     }
 }
+
