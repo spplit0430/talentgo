@@ -39,7 +39,6 @@ class ResultadoCostoActivity : AppCompatActivity() {
             .collection("preguntas")
             .get()
             .addOnSuccessListener { result ->
-                // Definir los contadores de cada perfil
                 val conteo = mutableMapOf(
                     "presupuestoBajo" to 0,
                     "becaImportante" to 0,
@@ -49,7 +48,8 @@ class ResultadoCostoActivity : AppCompatActivity() {
 
                 for (doc in result) {
                     val respuesta = doc.getString("respuesta") ?: continue
-                    Log.d("ResultadoCostoActivity", "Respuesta: $respuesta")  // Agregar log para ver las respuestas
+                    Log.d("ResultadoCostoActivity", "Respuesta: $respuesta")
+
                     when {
                         respuesta.contains("1 millón a 3 millones", true) -> conteo["presupuestoBajo"] = conteo["presupuestoBajo"]!! + 1
                         respuesta.contains("3 millones a 7 millones", true) -> conteo["becaImportante"] = conteo["becaImportante"]!! + 1
@@ -61,41 +61,54 @@ class ResultadoCostoActivity : AppCompatActivity() {
                     }
                 }
 
-
-                // Determinar el perfil basado en los conteos
                 val perfilDominante = conteo.maxByOrNull { it.value }?.key
 
-                when (perfilDominante) {
-                    "presupuestoBajo" -> mostrarResultado(
-                        "Perfil Económico",
-                        "Tu principal preocupación es el costo de la educación. Prefieres opciones económicas como becas y universidades públicas.",
-                        R.drawable.economica
-                    )
-                    "becaImportante" -> mostrarResultado(
-                        "Perfil con Beca",
-                        "Buscas oportunidades de becas y ayudas económicas para estudiar, prefiriendo universidades con programas de apoyo.",
-                        R.drawable.brujula
-                    )
-                    "alternativaEconomica" -> mostrarResultado(
-                        "Perfil de Alta Inversión",
-                        "Estás dispuesto a invertir más en tu educación, buscando opciones con prestigio y mayor inversión en materiales y formación.",
-                        R.drawable.idea
-                    )
-                    "flexible" -> mostrarResultado(
-                        "Perfil Flexible",
-                        "Valoras la flexibilidad y el costo. Buscas opciones accesibles que te permitan adaptar tu educación a tus necesidades.",
-                        R.drawable.prestigio
-                    )
-                    else -> throw IllegalArgumentException("Perfil de costos desconocido: $perfilDominante")
+                val nombrePerfil = when (perfilDominante) {
+                    "presupuestoBajo" -> {
+                        mostrarResultado("Perfil Económico", "Tu principal preocupación es el costo de la educación. Prefieres opciones económicas como becas y universidades públicas.", R.drawable.economica)
+                        "Perfil Económico"
+                    }
+                    "becaImportante" -> {
+                        mostrarResultado("Perfil con Beca", "Buscas oportunidades de becas y ayudas económicas para estudiar, prefiriendo universidades con programas de apoyo.", R.drawable.brujula)
+                        "Perfil con Beca"
+                    }
+                    "alternativaEconomica" -> {
+                        mostrarResultado("Perfil de Alta Inversión", "Estás dispuesto a invertir más en tu educación, buscando opciones con prestigio y mayor inversión en materiales y formación.", R.drawable.idea)
+                        "Perfil de Alta Inversión"
+                    }
+                    "flexible" -> {
+                        mostrarResultado("Perfil Flexible", "Valoras la flexibilidad y el costo. Buscas opciones accesibles que te permitan adaptar tu educación a tus necesidades.", R.drawable.prestigio)
+                        "Perfil Flexible"
+                    }
+                    else -> {
+                        resultadoPrincipal.text = "Perfil de costos desconocido"
+                        return@addOnSuccessListener
+                    }
                 }
+
+                // Guardar resultado en Firestore (colección metricas_costos)
+                val metricas = hashMapOf(
+                    "presupuestoBajo" to conteo["presupuestoBajo"],
+                    "becaImportante" to conteo["becaImportante"],
+                    "alternativaEconomica" to conteo["alternativaEconomica"],
+                    "flexible" to conteo["flexible"]
+                )
+
+                firestore.collection("metricas_costos")
+                    .document(userId)
+                    .set(metricas)
+                    .addOnSuccessListener {
+                        Log.d("ResultadoCostoActivity", "Métricas de costos guardadas exitosamente")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("ResultadoCostoActivity", "Error al guardar métricas de costos", e)
+                    }
             }
             .addOnFailureListener { exception ->
-                // En caso de error al obtener las respuestas
                 resultadoPrincipal.text = "Error al cargar los datos."
             }
 
         finalizarBtn.setOnClickListener {
-            // Crear un Intent para redirigir a la actividad principal
             val intent = Intent(this, ContinuaCostosActivity::class.java)
             startActivity(intent)
             finish()

@@ -15,6 +15,7 @@ class MetricasTuProgresoActivity : AppCompatActivity() {
 
     private lateinit var pieChartVocacional: PieChart
     private lateinit var pieChartUniversidades: PieChart
+    private lateinit var pieChartCostos: PieChart
     private val firestore = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +24,7 @@ class MetricasTuProgresoActivity : AppCompatActivity() {
 
         pieChartVocacional = findViewById(R.id.pieChartVocacional)
         pieChartUniversidades = findViewById(R.id.pieChartUniversidades)
+        pieChartCostos = findViewById(R.id.pieChartCostos)
 
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
 
@@ -120,6 +122,48 @@ class MetricasTuProgresoActivity : AppCompatActivity() {
             }
             .addOnFailureListener { exception ->
                 Toast.makeText(this, "Error al recuperar los datos de universidades: ${exception.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+        // MÉTRICAS COSTOS
+        firestore.collection("metricas_costos")
+            .document(userId)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val presupuestoBajo = document.getLong("presupuestoBajo")?.toInt() ?: 0
+                    val becaImportante = document.getLong("becaImportante")?.toInt() ?: 0
+                    val alternativaEconomica = document.getLong("alternativaEconomica")?.toInt() ?: 0
+                    val flexible = document.getLong("flexible")?.toInt() ?: 0
+
+                    val entriesCostos = mutableListOf<PieEntry>()
+                    entriesCostos.add(PieEntry(presupuestoBajo.toFloat(), "Económico"))
+                    entriesCostos.add(PieEntry(becaImportante.toFloat(), "Con Beca"))
+                    entriesCostos.add(PieEntry(alternativaEconomica.toFloat(), "Alta Inversión"))
+                    entriesCostos.add(PieEntry(flexible.toFloat(), "Flexible"))
+
+                    val dataSetCostos = PieDataSet(entriesCostos, "PERFIL")
+                    dataSetCostos.colors = listOf(
+                        Color.parseColor("#43A047"),  // Verde – Económico
+                        Color.parseColor("#FFC107"),  // Amarillo – Con Beca
+                        Color.parseColor("#1E88E5"),  // Azul – Alta Inversión
+                        Color.parseColor("#8E24AA")   // Morado – Flexible
+                    )
+
+                    val dataCostos = PieData(dataSetCostos)
+                    dataCostos.setValueTextSize(9f)
+                    dataCostos.setValueTextColor(Color.WHITE)
+
+                    pieChartCostos.data = dataCostos
+                    pieChartCostos.description.isEnabled = false
+                    pieChartCostos.legend.textSize = 9f
+                    pieChartCostos.setEntryLabelColor(Color.BLACK)
+                    pieChartCostos.setEntryLabelTextSize(9f)
+                    pieChartCostos.invalidate()
+                } else {
+                    Toast.makeText(this, "No se encontraron datos de métricas de costos.", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Error al recuperar los datos de costos: ${it.localizedMessage}", Toast.LENGTH_SHORT).show()
             }
     }
 }

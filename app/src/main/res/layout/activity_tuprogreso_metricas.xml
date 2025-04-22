@@ -157,7 +157,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Métricas Universidades y costos"
+                    android:text="Métricas Universidades y Costos"
                     android:textSize="22sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
@@ -189,7 +189,7 @@
                         <com.github.mikephil.charting.charts.PieChart
                             android:id="@+id/pieChartCostos"
                             android:layout_width="match_parent"
-                            android:layout_height="250dp"
+                            android:layout_height="300dp"
                             />
                     </LinearLayout>
 

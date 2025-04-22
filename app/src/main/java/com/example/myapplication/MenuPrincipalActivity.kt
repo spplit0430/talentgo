@@ -116,14 +116,10 @@ class MenuPrincipalActivity : AppCompatActivity() {
                     if (document != null && document.exists()) {
                         nombre = document.getString("nombre") ?: ""
                         apellido = document.getString("apellido") ?: ""
-                        correo = document.getString("correo_electronico") ?: ""
-                        fechaNacimiento = document.getString("fechaNacimiento") ?: ""
 
                         val intent = Intent(this, PerfilUsuarioActivity::class.java).apply {
                             putExtra("nombre", nombre)
                             putExtra("apellido", apellido)
-                            putExtra("correo", correo)
-                            putExtra("fechaNacimiento", fechaNacimiento) // Siempre enviar la fecha más reciente
                         }
                         perfilUsuarioLauncher.launch(intent)
                     }
