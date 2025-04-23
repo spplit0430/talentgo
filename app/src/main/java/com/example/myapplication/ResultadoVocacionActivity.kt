@@ -40,9 +40,9 @@ class ResultadoVocacionalActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { result ->
                 val conteo = mutableMapOf(
-                    "cientifico" to 0,
-                    "artistico" to 0,
-                    "social" to 0,
+                    "animales" to 0,
+                    "diseño" to 0,
+                    "finanzas" to 0,
                     "empresarial" to 0
                 )
 
@@ -51,9 +51,9 @@ class ResultadoVocacionalActivity : AppCompatActivity() {
                     val respuesta = doc.getString("respuesta") ?: continue
 
                     when {
-                        respuesta.contains("problemas", true) || respuesta.contains("ciencia", true) -> conteo["cientifico"] = conteo["cientifico"]!! + 1
-                        respuesta.contains("arte", true) || respuesta.contains("creativo", true) || respuesta.contains("diseñado", true) -> conteo["artistico"] = conteo["artistico"]!! + 1
-                        respuesta.contains("personas", true) || respuesta.contains("ayudar", true) -> conteo["social"] = conteo["social"]!! + 1
+                        respuesta.contains("problemas", true) || respuesta.contains("ciencia", true) -> conteo["animales"] = conteo["animales"]!! + 1
+                        respuesta.contains("arte", true) || respuesta.contains("creativo", true) || respuesta.contains("diseñado", true) -> conteo["diseño"] = conteo["diseño"]!! + 1
+                        respuesta.contains("personas", true) || respuesta.contains("ayudar", true) -> conteo["finanzas"] = conteo["finanzas"]!! + 1
                         respuesta.contains("empresa", true) || respuesta.contains("liderado", true) -> conteo["empresarial"] = conteo["empresarial"]!! + 1
                     }
                 }
@@ -62,24 +62,24 @@ class ResultadoVocacionalActivity : AppCompatActivity() {
                 val perfilDominante = conteo.maxByOrNull { it.value }?.key
 
                 when (perfilDominante) {
-                    "cientifico" -> mostrarResultado(
-                        "Perfil Analítico",
-                        "Eres una persona curiosa, lógica y resolutiva. Ideal para carreras como Ingeniería, Matemáticas, Física o Ciencias de la Computación.",
+                    "animales" -> mostrarResultado(
+                        "Perfil Minimalista",
+                        "Eres una persona curiosa, lógica y resolutiva. Ideal para carreras como veterinaria, zootecnia, biologia marina y Biologia",
                         R.drawable.vocacion1
                     )
-                    "artistico" -> mostrarResultado(
-                        "Perfil Creativo",
-                        "Tienes una gran imaginación y sensibilidad estética. Podrías destacar en diseño, artes visuales, literatura o cine.",
+                    "diseño" -> mostrarResultado(
+                        "Perfil De Diseño",
+                        "Tienes una gran imaginación y sensibilidad estética. Podrías destacar en diseño grafico, arquitectura, Ingenieria Civil o Diseño Industrial.",
                         R.drawable.vocacion2
                     )
-                    "social" -> mostrarResultado(
-                        "Perfil Humanitario",
-                        "Te importan los demás y te motiva ayudar. Carreras como Psicología, Trabajo Social, Educación o Medicina podrían ser lo tuyo.",
+                    "finanzas" -> mostrarResultado(
+                        "Perfil Financiero",
+                        "Te importan los demás y te motiva ayudar. Carreras como Contabilidad, Economia, Banca o Negocios Internacionales podrían ser lo tuyo.",
                         R.drawable.vocacion3
                     )
                     "empresarial" -> mostrarResultado(
                         "Perfil Líder",
-                        "Te gusta dirigir, emprender y asumir retos. Podrías encajar en Administración, Economía o Marketing.",
+                        "Te gusta dirigir, emprender y asumir retos. Podrías encajar en Administración, finanzas, Economía o Marketing.",
                         R.drawable.vocacion4
                     )
                     else -> throw IllegalArgumentException("Perfil vocacional desconocido: $perfilDominante")
@@ -87,9 +87,9 @@ class ResultadoVocacionalActivity : AppCompatActivity() {
 
                 // Enviar los resultados al gráfico en la siguiente actividad
                 val intent = Intent(this, MetricasTuProgresoActivity::class.java).apply {
-                    putExtra("cientifico", conteo["cientifico"] ?: 0)
-                    putExtra("artistico", conteo["artistico"] ?: 0)
-                    putExtra("social", conteo["social"] ?: 0)
+                    putExtra("animales", conteo["animales"] ?: 0)
+                    putExtra("diseño", conteo["diseño"] ?: 0)
+                    putExtra("finanzas", conteo["finanzas"] ?: 0)
                     putExtra("empresarial", conteo["empresarial"] ?: 0)
                 }
 

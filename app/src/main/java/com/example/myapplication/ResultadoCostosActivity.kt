@@ -43,7 +43,7 @@ class ResultadoCostoActivity : AppCompatActivity() {
                     "presupuestoBajo" to 0,
                     "becaImportante" to 0,
                     "alternativaEconomica" to 0,
-                    "flexible" to 0
+                    "moderado" to 0
                 )
 
                 for (doc in result) {
@@ -54,9 +54,9 @@ class ResultadoCostoActivity : AppCompatActivity() {
                         respuesta.contains("1 millón a 3 millones", true) -> conteo["presupuestoBajo"] = conteo["presupuestoBajo"]!! + 1
                         respuesta.contains("3 millones a 7 millones", true) -> conteo["becaImportante"] = conteo["becaImportante"]!! + 1
                         respuesta.contains("7 millones a superior", true) -> conteo["alternativaEconomica"] = conteo["alternativaEconomica"]!! + 1
-                        respuesta.contains("sería de gran ayuda", true) || respuesta.contains("puedo costear", true) -> conteo["flexible"] = conteo["flexible"]!! + 1
+                        respuesta.contains("sería de gran ayuda", true) || respuesta.contains("puedo costear", true) -> conteo["moderado"] = conteo["moderado"]!! + 1
                         respuesta.contains("buscar becas", true) -> conteo["presupuestoBajo"] = conteo["presupuestoBajo"]!! + 1
-                        respuesta.contains("optar por una universidad económica", true) -> conteo["flexible"] = conteo["flexible"]!! + 1
+                        respuesta.contains("optar por una universidad económica", true) -> conteo["moderado"] = conteo["moderado"]!! + 1
                         respuesta.contains("asumir el costo con apoyo", true) -> conteo["alternativaEconomica"] = conteo["alternativaEconomica"]!! + 1
                     }
                 }
@@ -76,9 +76,9 @@ class ResultadoCostoActivity : AppCompatActivity() {
                         mostrarResultado("Perfil de Alta Inversión", "Estás dispuesto a invertir más en tu educación, buscando opciones con prestigio y mayor inversión en materiales y formación.", R.drawable.idea)
                         "Perfil de Alta Inversión"
                     }
-                    "flexible" -> {
-                        mostrarResultado("Perfil Flexible", "Valoras la flexibilidad y el costo. Buscas opciones accesibles que te permitan adaptar tu educación a tus necesidades.", R.drawable.prestigio)
-                        "Perfil Flexible"
+                    "moderado" -> {
+                        mostrarResultado("Perfil Moderado", "Valoras la flexibilidad y el costo. Buscas opciones accesibles que te permitan adaptar tu educación a tus necesidades.", R.drawable.prestigio)
+                        "Perfil Moderado"
                     }
                     else -> {
                         resultadoPrincipal.text = "Perfil de costos desconocido"
@@ -91,7 +91,7 @@ class ResultadoCostoActivity : AppCompatActivity() {
                     "presupuestoBajo" to conteo["presupuestoBajo"],
                     "becaImportante" to conteo["becaImportante"],
                     "alternativaEconomica" to conteo["alternativaEconomica"],
-                    "flexible" to conteo["flexible"]
+                    "moderado" to conteo["moderado"]
                 )
 
                 firestore.collection("metricas_costos")

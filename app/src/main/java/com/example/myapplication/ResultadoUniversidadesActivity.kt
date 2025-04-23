@@ -41,7 +41,6 @@ class ResultadoUniversidadActivity : AppCompatActivity() {
             .addOnSuccessListener { result ->
 
                 var prestigio = 0
-                var costo = 0
                 var publica = 0
                 var privada = 0
                 var online = 0
@@ -51,7 +50,7 @@ class ResultadoUniversidadActivity : AppCompatActivity() {
                     val respuesta = doc.getString("respuesta") ?: continue
 
                     when (respuesta) {
-                        "Colombia" -> publica++
+                        "Colombia" -> flexible++
                         "Estados Unidos o Europa", "En otro país de habla hispana" -> prestigio++
                         "No tengo preferencia" -> flexible++
 
@@ -62,10 +61,10 @@ class ResultadoUniversidadActivity : AppCompatActivity() {
                         "Ciencias e ingeniería" -> publica++
                         "Artes y humanidades" -> privada++
                         "Negocios y economía" -> prestigio++
-                        "Salud y medicina" -> publica++
+                        "Salud y medicina" -> prestigio++
 
                         "Prestigio y reconocimiento" -> prestigio++
-                        "Costo de matrícula y becas" -> costo++
+                        "Costo de matrícula y becas" -> flexible++
                         "Ubicación y cercanía" -> publica++
                         "Flexibilidad en horarios" -> flexible++
                     }
@@ -73,7 +72,6 @@ class ResultadoUniversidadActivity : AppCompatActivity() {
 
                 val conteo = mapOf(
                     "prestigio" to prestigio,
-                    "costo" to costo,
                     "publica" to publica,
                     "privada" to privada,
                     "online" to online,
@@ -83,7 +81,6 @@ class ResultadoUniversidadActivity : AppCompatActivity() {
                 // Enviar los resultados al gráfico en la siguiente actividad
                 val intent = Intent(this, MetricasTuProgresoActivity::class.java).apply {
                     putExtra("prestigio", prestigio)
-                    putExtra("costo", costo)
                     putExtra("publica", publica)
                     putExtra("privada", privada)
                     putExtra("online", online)
@@ -103,15 +100,11 @@ class ResultadoUniversidadActivity : AppCompatActivity() {
 
                 // Mostrar resultado visual en pantalla
                 val perfil = when {
-                    prestigio >= 2 && costo >= 2 -> "universidad_prestigio_economica"
+                    flexible >= 2 -> "universidad_prestigio_economica"
                     publica >= 2 && online >= 2 -> "universidad_publica_tecnologica"
-                    privada >= 2 && prestigio >= 2 -> "universidad_privada_prestigiosa"
-                    online >= 2 && costo >= 2 -> "universidad_online_economica"
                     prestigio >= 2 -> "universidad_prestigiosa"
-                    online >= 2 -> "universidad_online"
                     publica >= 2 -> "universidad_publica"
                     privada >= 2 -> "universidad_privada"
-                    costo >= 2 -> "universidad_economica"
                     flexible >= 2 -> "universidad_flexible"
                     else -> "universidad_general"
                 }
@@ -142,29 +135,14 @@ class ResultadoUniversidadActivity : AppCompatActivity() {
                 "Prefieres universidades accesibles y modernas...",
                 R.drawable.publico
             )
-            "universidad_privada_prestigiosa" -> mostrarResultado(
-                "Universidad Privada de Prestigio",
-                "Valoras la reputación académica...",
-                R.drawable.privada
-            )
-            "universidad_online_economica" -> mostrarResultado(
-                "Universidad Online y Económica",
-                "Buscas flexibilidad y economía...",
-                R.drawable.online
-            )
             "universidad_prestigiosa" -> mostrarResultado(
                 "Universidad Prestigiosa",
-                "Tu enfoque está en la calidad y reputación...",
+                "Tu enfoque está en la calidad y reputación de la universidad",
                 R.drawable.prestigio
-            )
-            "universidad_online" -> mostrarResultado(
-                "Universidad Online",
-                "Valoras estudiar desde casa...",
-                R.drawable.online
             )
             "universidad_publica" -> mostrarResultado(
                 "Universidad Pública",
-                "Prefieres instituciones accesibles...",
+                "Prefieres instituciones accesibles que teniendo bajos recursos puedas ingresar a una universidad",
                 R.drawable.publico
             )
             "universidad_privada" -> mostrarResultado(
@@ -172,14 +150,14 @@ class ResultadoUniversidadActivity : AppCompatActivity() {
                 "Buscas una experiencia más personalizada...",
                 R.drawable.privado
             )
-            "universidad_economica" -> mostrarResultado(
-                "Universidad Económica",
-                "Tu prioridad es optimizar recursos...",
-                R.drawable.economica
-            )
             "universidad_flexible" -> mostrarResultado(
                 "Universidad Flexible",
-                "Buscas una institución que se adapte a tu estilo de vida...",
+                "Buscas una institución que se adapte a tu estilo de vida con mas Benefecios Economicos",
+                R.drawable.universidad
+            )
+            "universidad_general" -> mostrarResultado(
+                "Universidad General",
+                "Buscas una institución predeterminada sin dar mucha importancia",
                 R.drawable.universidad
             )
             else -> throw IllegalArgumentException("Perfil desconocido: $perfil")

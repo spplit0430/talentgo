@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#B3E0E5">
+
+    <!-- Botón de retroceso en la esquina superior izquierda -->
+    <ImageView
+        android:id="@+id/salida_olvido2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="start|top"
+        android:layout_margin="16dp"
+        android:src="@drawable/retroceso" />
+
+    <!-- Contenido desplazable -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:gravity="center_horizontal">
+
+            <!-- Título -->
+            <TextView
+                android:id="@+id/tv_titulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Agendamiento"
+                android:textColor="#507C8E"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Universidad De Interés -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Universidad De Interes"
+                android:textStyle="bold"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/input_universidad"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:backgroundTint="#548CA8"
+                android:hint="Ingresa universidad"
+                android:inputType="text"
+                android:padding="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_edittext_agendamiento" />
+
+            <!-- Fecha y Hora -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha y Hora"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginTop="30dp" />
+
+            <EditText
+                android:id="@+id/input_fecha_hora"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:backgroundTint="#548CA8"
+                android:hint="Selecciona fecha y hora"
+                android:inputType="datetime"
+                android:padding="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_edittext_agendamiento" />
+
+            <!-- Tipo De Reunión -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipo De Reunión"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginTop="30dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="10dp">
+
+                <Button
+                    android:id="@+id/btn_remoto"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Remoto"
+                    android:backgroundTint="#548CA8"
+                    android:textColor="#FFFFFF" />
+
+                <Space
+                    android:layout_width="16dp"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/btn_presencial"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Presencial"
+                    android:backgroundTint="#548CA8"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+            <!-- Switch Recordatorios -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recordatorios Automáticos"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginTop="30dp" />
+
+            <Switch
+                android:id="@+id/switch_recordatorios"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp" />
+
+            <!-- Botón Agendar -->
+            <Button
+                android:id="@+id/btn_agendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Agendar"
+                android:textSize="20dp"
+                android:backgroundTint="#000000"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="30dp" />
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

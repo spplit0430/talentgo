@@ -56,6 +56,10 @@
         <activity android:name=".ContinuaCostosActivity" />
         <activity android:name=".TuProgresoActivity" />
         <activity android:name=".MetricasTuProgresoActivity" />
+        <activity android:name=".TuProgresoVocacionAnimalesActivity" />
+        <activity android:name=".TuProgresoVocacionDisenoActivity" />
+        <activity android:name=".TuProgresoVocacionFinanzasActivity" />
+
 
 
 
