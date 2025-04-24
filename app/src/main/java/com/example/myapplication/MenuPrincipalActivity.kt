@@ -190,5 +190,10 @@ class MenuPrincipalActivity : AppCompatActivity() {
             val intent = Intent(this, TuProgresoActivity::class.java)
             startActivity(intent)
         }
+        val agendarCitaTextView: TextView = findViewById(R.id.btn_agendar_cita)
+        agendarCitaTextView.setOnClickListener {
+            val intent = Intent(this, AgendamientoActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

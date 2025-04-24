@@ -33,9 +33,9 @@
                 android:layout_height="wrap_content"
                 android:text="Agendamiento"
                 android:textColor="#507C8E"
-                android:textSize="40sp"
+                android:textSize="45sp"
                 android:textStyle="bold"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="24dp" />
 
             <!-- Universidad De Interés -->
@@ -44,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:text="Universidad De Interes"
                 android:textStyle="bold"
+                android:layout_marginTop="10dp"
                 android:textSize="20dp" />
 
             <EditText

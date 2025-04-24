@@ -390,6 +390,7 @@
                 android:src="@drawable/cita" />
 
             <TextView
+                android:id="@+id/btn_agendar_cita"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Agendar Cita"

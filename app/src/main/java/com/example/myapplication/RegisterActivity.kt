@@ -33,6 +33,7 @@ class RegisterActivity : AppCompatActivity() {
         val apellidoText = findViewById<EditText>(R.id.apellido_text)
         val correoText = findViewById<EditText>(R.id.correo_electronico_text)
         val contrasenaText = findViewById<EditText>(R.id.contraseña_text)
+        contrasenaText.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
         val fechaNacimientoText = findViewById<EditText>(R.id.fecha_de_nacimiento_text)
         val registrarseBtn = findViewById<Button>(R.id.registrarse)
 
