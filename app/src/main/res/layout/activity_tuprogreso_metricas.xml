@@ -220,7 +220,7 @@
         android:background="#884A708B"
         android:padding="16dp">
 
-        <!-- Botón de salida -->
+        <!-- Botón de salida arriba a la derecha -->
         <ImageView
             android:id="@+id/salida_olvido3"
             android:layout_width="40dp"
@@ -242,6 +242,161 @@
             android:layout_marginTop="30dp"
             android:layout_gravity="center_horizontal" />
 
+        <!-- Perfil de usuario -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="16dp"
+            android:layout_marginTop="29dp">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/usuario"
+                android:layout_marginEnd="8dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/nombre_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nombre"
+                        android:textColor="#000000"
+                        android:textStyle="bold"
+                        android:textSize="22sp"
+                        android:layout_marginEnd="3dp" />
+
+                    <TextView
+                        android:id="@+id/apellido_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Apellido"
+                        android:textColor="#000000"
+                        android:textStyle="bold"
+                        android:textSize="22sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/btn_usuario"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Usuario"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Opciones del menú -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="12dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/progreso" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tu Progreso"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="12dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/cita" />
+
+            <TextView
+                android:id="@+id/btn_agendar_cita"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Agendar Cita"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="12dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/universidades" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aplicaciones a Universidades"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- Espaciador para empujar los botones al fondo -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- Botones en la parte inferior -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="12dp">
+
+            <!-- Botón inferior izquierdo -->
+            <ImageView
+                android:id="@+id/boton_izquierdo"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/herramientas"
+                android:contentDescription="Botón izquierdo"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <!-- Espaciador flexible -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <!-- Botón inferior derecho -->
+            <ImageView
+                android:id="@+id/boton_derecho"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/salida"
+                android:contentDescription="Botón derecho"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

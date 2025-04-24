@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -23,6 +24,13 @@ class VocacionPreguntasActivity : AppCompatActivity() {
         if (currentUser == null) {
             finish() // O redirige al login si no hay sesión
             return
+        }
+
+        val botonAtras = findViewById<ImageView>(R.id.atras)
+        botonAtras.setOnClickListener {
+            val intent = Intent(this, VocacionActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
         // Botones de respuesta

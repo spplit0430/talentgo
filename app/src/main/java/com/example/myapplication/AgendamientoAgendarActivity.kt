@@ -31,6 +31,14 @@ class AgendamientoAgendarActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_agendamiento_agendar)
 
+        // Botón de retroceso
+        val botonAtras = findViewById<ImageView>(R.id.salida_olvido2)
+        botonAtras.setOnClickListener {
+            val intent = Intent(this, AgendamientoActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         // Referencias a los elementos
         inputUniversidad = findViewById(R.id.input_universidad)
         inputFechaHora = findViewById(R.id.input_fecha_hora)

@@ -5,12 +5,13 @@ import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
-class TuProgresoVocacionDisenoActivity : AppCompatActivity() {
+class TuProgresoUniversidadesCostosAnimalesModeradoAlto : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.tuprogreso_vocacion_diseno)
+        setContentView(R.layout.tuprogreso_universidadescostos_animales_moderadoalto)
 
-        val botonAtras = findViewById<ImageView>(R.id.atras)
+        // Botón para regresar a la pantalla de métricas
+        val botonAtras = findViewById<ImageView>(R.id.atrass)
         botonAtras.setOnClickListener {
             val intent = Intent(this, MetricasTuProgresoActivity::class.java)
             startActivity(intent)

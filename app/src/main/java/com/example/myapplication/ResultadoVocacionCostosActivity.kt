@@ -57,12 +57,14 @@ class ResultadoVocacionCostosActivity : AppCompatActivity() {
                         perfilVocacional == "animales" && perfilCostos == "moderado" -> {
                             setContentView(R.layout.tuprogreso_universidadescostos_animales_moderadoalto)
                         }
+                        perfilVocacional == "animales" && perfilCostos == "alternativaEconomica" -> {
+                            setContentView(R.layout.tuprogreso_universidadescostos_animales_moderadoalto)
+                        }
                         perfilVocacional == "animales" && perfilCostos == "presupuestoBajo" -> {
                             setContentView(R.layout.tuprogreso_universidadescostos_animales_economicas)
                         }
                         else -> {
-                            // Manejo por defecto si no se encuentra una combinación válida
-                            setContentView(R.layout.activity_agendamiento)
+                            setContentView(R.layout.tuprogreso_universidadescostos_todascarreras)
                         }
                     }
 

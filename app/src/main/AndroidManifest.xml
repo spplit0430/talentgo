@@ -65,10 +65,15 @@
         <activity android:name=".AgendamientoMisCitasActivity" />
         <activity android:name=".AgendamientoCancelarCitasActivity" />
         <activity android:name=".ResultadoVocacionCostosActivity" />
-
-
-
-
+        <activity android:name=".TuProgresoUniversidadesCostosAnimalesModeradoAlto" />
+        <activity android:name=".TuProgresoUniversidadesCostosAnimalesEconomicasActivity" />
+        <activity android:name=".TuProgresoUniversidadesCostosDisenoAltos" />
+        <activity android:name=".TuProgresoUniversidadesCostosDisenoEconomicas" />
+        <activity android:name=".TuProgresoUniversidadesCostosDisenoModerado" />
+        <activity android:name=".TuProgresoUniversidadesCostosFinanzasAltos" />
+        <activity android:name=".TuProgresoUniversidadesCostosFinanzasEconomicas" />
+        <activity android:name=".TuProgresoUniversidadesCostosFinanzasModerado" />
+        <activity android:name=".TuProgresoUniversidadescostosTodasCarreras" />
 
 
 

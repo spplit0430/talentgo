@@ -19,8 +19,8 @@
     <!-- Botón atrás -->
     <ImageView
         android:id="@+id/atras"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@drawable/retroceso"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"

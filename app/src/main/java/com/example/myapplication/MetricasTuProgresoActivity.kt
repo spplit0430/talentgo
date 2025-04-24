@@ -4,8 +4,11 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
@@ -15,6 +18,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class MetricasTuProgresoActivity : AppCompatActivity() {
 
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var btnMenu: ImageView
     private lateinit var pieChartVocacional: PieChart
     private lateinit var pieChartUniversidades: PieChart
     private lateinit var pieChartCostos: PieChart
@@ -27,6 +32,26 @@ class MetricasTuProgresoActivity : AppCompatActivity() {
         pieChartVocacional = findViewById(R.id.pieChartVocacional)
         pieChartUniversidades = findViewById(R.id.pieChartUniversidades)
         pieChartCostos = findViewById(R.id.pieChartCostos)
+        drawerLayout = findViewById(R.id.drawer_layout)
+        btnMenu = findViewById(R.id.btn_menu)
+
+
+        btnMenu.setOnClickListener {
+            if (!drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                drawerLayout.openDrawer(GravityCompat.END)
+            } else {
+                drawerLayout.closeDrawer(GravityCompat.END)
+            }
+        }
+
+
+        val btnRegresar = findViewById<ImageView>(R.id.salida_olvido2)
+        btnRegresar.setOnClickListener {
+            val intent = Intent(this, TuProgresoActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(intent)
+            finish()
+        }
 
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
 
