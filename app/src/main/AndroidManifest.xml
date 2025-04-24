@@ -64,6 +64,7 @@
         <activity android:name=".AgendamientoAgendarActivity" />
         <activity android:name=".AgendamientoMisCitasActivity" />
         <activity android:name=".AgendamientoCancelarCitasActivity" />
+        <activity android:name=".ResultadoVocacionCostosActivity" />
 
 
 

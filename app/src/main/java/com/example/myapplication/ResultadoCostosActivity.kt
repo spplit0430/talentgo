@@ -41,7 +41,6 @@ class ResultadoCostoActivity : AppCompatActivity() {
             .addOnSuccessListener { result ->
                 val conteo = mutableMapOf(
                     "presupuestoBajo" to 0,
-                    "becaImportante" to 0,
                     "alternativaEconomica" to 0,
                     "moderado" to 0
                 )
@@ -52,7 +51,6 @@ class ResultadoCostoActivity : AppCompatActivity() {
 
                     when {
                         respuesta.contains("1 millón a 3 millones", true) -> conteo["presupuestoBajo"] = conteo["presupuestoBajo"]!! + 1
-                        respuesta.contains("3 millones a 7 millones", true) -> conteo["becaImportante"] = conteo["becaImportante"]!! + 1
                         respuesta.contains("7 millones a superior", true) -> conteo["alternativaEconomica"] = conteo["alternativaEconomica"]!! + 1
                         respuesta.contains("sería de gran ayuda", true) || respuesta.contains("puedo costear", true) -> conteo["moderado"] = conteo["moderado"]!! + 1
                         respuesta.contains("buscar becas", true) -> conteo["presupuestoBajo"] = conteo["presupuestoBajo"]!! + 1
@@ -67,10 +65,6 @@ class ResultadoCostoActivity : AppCompatActivity() {
                     "presupuestoBajo" -> {
                         mostrarResultado("Perfil Económico", "Tu principal preocupación es el costo de la educación. Prefieres opciones económicas como becas y universidades públicas.", R.drawable.economica)
                         "Perfil Económico"
-                    }
-                    "becaImportante" -> {
-                        mostrarResultado("Perfil con Beca", "Buscas oportunidades de becas y ayudas económicas para estudiar, prefiriendo universidades con programas de apoyo.", R.drawable.brujula)
-                        "Perfil con Beca"
                     }
                     "alternativaEconomica" -> {
                         mostrarResultado("Perfil de Alta Inversión", "Estás dispuesto a invertir más en tu educación, buscando opciones con prestigio y mayor inversión en materiales y formación.", R.drawable.idea)
@@ -89,7 +83,6 @@ class ResultadoCostoActivity : AppCompatActivity() {
                 // Guardar resultado en Firestore (colección metricas_costos)
                 val metricas = hashMapOf(
                     "presupuestoBajo" to conteo["presupuestoBajo"],
-                    "becaImportante" to conteo["becaImportante"],
                     "alternativaEconomica" to conteo["alternativaEconomica"],
                     "moderado" to conteo["moderado"]
                 )

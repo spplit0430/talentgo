@@ -89,6 +89,12 @@ class MetricasTuProgresoActivity : AppCompatActivity() {
                             else -> Toast.makeText(this, "No se pudo determinar el perfil más alto.", Toast.LENGTH_SHORT).show()
                         }
                     }
+                    val btnVerCombinado = findViewById<Button>(R.id.btn_ver_combinado)
+                    btnVerCombinado.setOnClickListener {
+                        val intent = Intent(this, ResultadoVocacionCostosActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
 
                 } else {
                     Toast.makeText(this, "No se encontraron datos de métricas vocacionales.", Toast.LENGTH_SHORT).show()
@@ -155,20 +161,17 @@ class MetricasTuProgresoActivity : AppCompatActivity() {
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
                     val presupuestoBajo = document.getLong("presupuestoBajo")?.toInt() ?: 0
-                    val becaImportante = document.getLong("becaImportante")?.toInt() ?: 0
                     val alternativaEconomica = document.getLong("alternativaEconomica")?.toInt() ?: 0
                     val moderado = document.getLong("moderado")?.toInt() ?: 0
 
                     val entriesCostos = mutableListOf<PieEntry>()
                     entriesCostos.add(PieEntry(presupuestoBajo.toFloat(), "Económico"))
-                    entriesCostos.add(PieEntry(becaImportante.toFloat(), "Con Beca"))
                     entriesCostos.add(PieEntry(alternativaEconomica.toFloat(), "Alta Inversión"))
                     entriesCostos.add(PieEntry(moderado.toFloat(), "Moderado"))
 
                     val dataSetCostos = PieDataSet(entriesCostos, "COSTOS")
                     dataSetCostos.colors = listOf(
                         Color.parseColor("#43A047"),  // Verde – Económico
-                        Color.parseColor("#FFC107"),  // Amarillo – Con Beca
                         Color.parseColor("#1E88E5"),  // Azul – Alta Inversión
                         Color.parseColor("#8E24AA")   // Morado – Moderado
                     )
