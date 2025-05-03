@@ -4,47 +4,28 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.auth.FirebaseAuth
 
-class AgendamientoActivity : AppCompatActivity() {
-
-    private lateinit var drawerLayout: DrawerLayout
-    private lateinit var btnMenu: ImageView
-
-    private lateinit var auth: FirebaseAuth
+class AgendamientoActivity : BaseMenuActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_agendamiento)
 
-        // Inicializar Firebase
-        auth = FirebaseAuth.getInstance()
+        // Referencias necesarias para el menú lateral
+        val drawerLayout = findViewById<androidx.drawerlayout.widget.DrawerLayout>(R.id.drawer_layout)
+        val btnMenu = findViewById<ImageView>(R.id.btn_menu)
+        val nombreLabel = findViewById<TextView>(R.id.nombre_label_2)
+        val apellidoLabel = findViewById<TextView>(R.id.apellido_label_2)
 
-        // Validar sesión iniciada
-        val currentUser = auth.currentUser
-        if (currentUser == null) {
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
-            return
-        }
+        // Configurar menú lateral con método de BaseMenuActivity
+        configurarMenuLateral(drawerLayout, btnMenu, nombreLabel, apellidoLabel)
 
-        // Referencias UI
-        drawerLayout = findViewById(R.id.drawer_layout)
-        btnMenu = findViewById(R.id.btn_menu)
-
-        // Botón para abrir/cerrar menú lateral
-        btnMenu.setOnClickListener {
-            if (!drawerLayout.isDrawerOpen(GravityCompat.END)) {
-                drawerLayout.openDrawer(GravityCompat.END)
-            } else {
-                drawerLayout.closeDrawer(GravityCompat.END)
-            }
-        }
-
-        // Botón regresar al menú principal
+        // Botón para regresar al menú principal
         val btnRegresar = findViewById<ImageView>(R.id.salida_olvido2)
         btnRegresar.setOnClickListener {
             val intent = Intent(this, MenuPrincipalActivity::class.java)
@@ -52,26 +33,24 @@ class AgendamientoActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
         // Botones funcionales
         val botonAgendamiento: Button = findViewById(R.id.btn_opcion1)
         botonAgendamiento.setOnClickListener {
             val intent = Intent(this, AgendamientoAgendarActivity::class.java)
             startActivity(intent)
         }
-
         val btnMisCitas = findViewById<Button>(R.id.btn_opcion2)
         btnMisCitas.setOnClickListener {
             val intent = Intent(this, AgendamientoMisCitasActivity::class.java)
             startActivity(intent)
         }
-
         val btnCancelarCita = findViewById<Button>(R.id.btn_opcion3)
         btnCancelarCita.setOnClickListener {
             val intent = Intent(this, AgendamientoCancelarCitasActivity::class.java)
             startActivity(intent)
         }
     }
+}
 
-    }
+
 

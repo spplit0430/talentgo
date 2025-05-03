@@ -267,20 +267,20 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/nombre_label"
+                        android:id="@+id/nombre_label_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Nombre"
+                        android:text=""
                         android:textColor="#000000"
                         android:textStyle="bold"
                         android:textSize="22sp"
                         android:layout_marginEnd="3dp" />
 
                     <TextView
-                        android:id="@+id/apellido_label"
+                        android:id="@+id/apellido_label_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Apellido"
+                        android:text=""
                         android:textColor="#000000"
                         android:textStyle="bold"
                         android:textSize="22sp" />
@@ -310,6 +310,7 @@
                 android:src="@drawable/progreso" />
 
             <TextView
+                android:id="@+id/btn_TuProgreso"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tu Progreso"

@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -16,14 +17,14 @@ import com.github.mikephil.charting.data.PieEntry
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class MetricasTuProgresoActivity : AppCompatActivity() {
+class MetricasTuProgresoActivity : BaseMenuActivity() {
 
-    private lateinit var drawerLayout: DrawerLayout
+
     private lateinit var btnMenu: ImageView
     private lateinit var pieChartVocacional: PieChart
     private lateinit var pieChartUniversidades: PieChart
     private lateinit var pieChartCostos: PieChart
-    private val firestore = FirebaseFirestore.getInstance()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +45,16 @@ class MetricasTuProgresoActivity : AppCompatActivity() {
             }
         }
 
+        // Referencias necesarias para el menú lateral
+        val drawerLayout = findViewById<androidx.drawerlayout.widget.DrawerLayout>(R.id.drawer_layout)
+        val btnMenu = findViewById<ImageView>(R.id.btn_menu)
+        val nombreLabel = findViewById<TextView>(R.id.nombre_label_2)
+        val apellidoLabel = findViewById<TextView>(R.id.apellido_label_2)
 
+        // Configurar menú lateral con método de BaseMenuActivity
+        configurarMenuLateral(drawerLayout, btnMenu, nombreLabel, apellidoLabel)
+
+        // Botón para regresar al menú principal
         val btnRegresar = findViewById<ImageView>(R.id.salida_olvido2)
         btnRegresar.setOnClickListener {
             val intent = Intent(this, TuProgresoActivity::class.java)
@@ -52,6 +62,7 @@ class MetricasTuProgresoActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
 
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
 

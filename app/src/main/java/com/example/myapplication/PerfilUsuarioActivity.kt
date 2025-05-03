@@ -81,14 +81,34 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         // Botón de retroceso
         val botonRetroceso = findViewById<ImageView>(R.id.salida_olvido3)
         botonRetroceso.setOnClickListener {
-            val data = Intent().apply {
-                putExtra("nombre", nombreText.text.toString())
-                putExtra("apellido", apellidoText.text.toString())
-                putExtra("correo", correoText.text.toString())
-                putExtra("fechaNacimiento", fechaNacimientoText.text.toString())
+            val userId = auth.currentUser?.uid
+            if (userId != null) {
+                db.collection("usuarios").document(userId).get()
+                    .addOnSuccessListener { document ->
+                        if (document.exists()) {
+                            val nombre = document.getString("nombre") ?: ""
+                            val apellido = document.getString("apellido") ?: ""
+                            val correo = auth.currentUser?.email ?: ""
+                            val fechaNacimiento = document.getString("fechaNacimiento") ?: ""
+
+                            val data = Intent().apply {
+                                putExtra("nombre", nombre)
+                                putExtra("apellido", apellido)
+                                putExtra("correo", correo)
+                                putExtra("fechaNacimiento", fechaNacimiento)
+                            }
+                            setResult(RESULT_OK, data)
+                            finish()
+                        } else {
+                            Toast.makeText(this, "No se encontró el perfil", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this, "Error al obtener datos", Toast.LENGTH_SHORT).show()
+                    }
+            } else {
+                Toast.makeText(this, "Usuario no autenticado", Toast.LENGTH_SHORT).show()
             }
-            setResult(RESULT_OK, data)
-            finish()
         }
 
         // Botón de actualizar información
