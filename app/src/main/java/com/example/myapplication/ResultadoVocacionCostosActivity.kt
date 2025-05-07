@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -37,34 +38,34 @@ class ResultadoVocacionCostosActivity : AppCompatActivity() {
                     // === Aquí decides qué layout mostrar según la combinación ===
                     when {
                         perfilVocacional == "finanzas" && perfilCostos == "presupuestoBajo" -> {
-                            setContentView(R.layout.tuprogreso_universidadescostos_finanzas_economicas)
+                            startActivity(Intent(this, TuProgresoUniversidadesCostosFinanzasEconomicas::class.java))
                         }
                         perfilVocacional == "finanzas" && perfilCostos == "moderado" -> {
-                            setContentView(R.layout.tuprogreso_universidadescostos_finanzas_moderado)
+                            startActivity(Intent(this, TuProgresoUniversidadesCostosFinanzasModerado::class.java))
                         }
                         perfilVocacional == "finanzas" && perfilCostos == "alternativaEconomica" -> {
-                            setContentView(R.layout.tuprogreso_universidadescostos_finanzas_altos)
+                            startActivity(Intent(this, TuProgresoUniversidadesCostosFinanzasAltos::class.java))
                         }
                         perfilVocacional == "diseño" && perfilCostos == "presupuestoBajo" -> {
-                            setContentView(R.layout.tuprogreso_universidadescostos_diseno_economicas)
+                            startActivity(Intent(this, TuProgresoUniversidadesCostosDisenoEconomicas::class.java))
                         }
                         perfilVocacional == "diseño" && perfilCostos == "moderado" -> {
-                            setContentView(R.layout.tuprogreso_universidadescostos_diseno_moderado)
+                            startActivity(Intent(this, TuProgresoUniversidadesCostosDisenoModerado::class.java))
                         }
                         perfilVocacional == "diseño" && perfilCostos == "alternativaEconomica" -> {
-                            setContentView(R.layout.tuprogreso_universidadescostos_diseno_altos)
+                            startActivity(Intent(this, TuProgresoUniversidadesCostosDisenoAltos::class.java))
                         }
                         perfilVocacional == "animales" && perfilCostos == "moderado" -> {
-                            setContentView(R.layout.tuprogreso_universidadescostos_animales_moderadoalto)
+                            startActivity(Intent(this, TuProgresoUniversidadesCostosAnimalesModeradoAlto::class.java))
                         }
                         perfilVocacional == "animales" && perfilCostos == "alternativaEconomica" -> {
-                            setContentView(R.layout.tuprogreso_universidadescostos_animales_moderadoalto)
+                            startActivity(Intent(this, TuProgresoUniversidadesCostosAnimalesModeradoAlto::class.java))
                         }
                         perfilVocacional == "animales" && perfilCostos == "presupuestoBajo" -> {
-                            setContentView(R.layout.tuprogreso_universidadescostos_animales_economicas)
+                            startActivity(Intent(this, TuProgresoUniversidadesCostosAnimalesEconomicasActivity::class.java))
                         }
                         else -> {
-                            setContentView(R.layout.tuprogreso_universidadescostos_todascarreras)
+                            startActivity(Intent(this, TuProgresoUniversidadescostosTodasCarreras::class.java))
                         }
                     }
 

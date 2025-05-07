@@ -65,7 +65,7 @@
                     android:id="@+id/nombre_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nombre"
+                    android:text=""
                     android:textColor="#000"
                     android:textSize="30sp"
                     android:textStyle="bold" />
@@ -74,7 +74,7 @@
                     android:id="@+id/apellido_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Apellido"
+                    android:text=""
                     android:textColor="#000"
                     android:textSize="30sp"
                     android:textStyle="bold" />

@@ -75,7 +75,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"
                             android:gravity="center"
-                            android:text="Eres una persona analítica, curiosa e innovadora."
+                            android:text=""
                             android:textColor="#000000"
                             android:textSize="22sp"
                             android:textStyle="bold" />
@@ -86,7 +86,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="18dp"
                             android:gravity="center"
-                            android:text="Te encanta resolver problemas complejos y enfrentarte a desafíos intelectuales. Disfrutas aprendiendo cosas nuevas y explorando conceptos desconocidos, lo que te hace ideal para carreras en ciencia, tecnología, ingeniería o matemáticas."
+                            android:text=""
                             android:textColor="#333333"
                             android:textSize="18sp" />
 
@@ -94,8 +94,7 @@
                             android:id="@+id/imagen_resultado"
                             android:layout_width="90dp"
                             android:layout_height="90dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/vocacion1" />
+                            android:layout_gravity="center" />
 
                     </LinearLayout>
 

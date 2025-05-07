@@ -76,7 +76,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"
                             android:gravity="center"
-                            android:text="Eres Una Persona Independiente y Creativa"
+                            android:text=""
                             android:textColor="#000000"
                             android:textSize="22sp"
                             android:textStyle="bold" />
@@ -87,7 +87,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="18dp"
                             android:gravity="center"
-                            android:text="con ganas de explorar el mundo sin perder mi conexión con el idioma y la cultura. Prefiero una educación flexible que me permita equilibrar mis estudios con otros proyectos o intereses. La creatividad y la expresión son fundamentales en mi camino profesional, y busco una formación que me brinde herramientas para desarrollarme en estos ámbitos sin atarme a estructuras rígidas."
+                            android:text=""
                             android:textColor="#333333"
                             android:textSize="18sp" />
 
@@ -95,8 +95,7 @@
                             android:id="@+id/imagen_resultado"
                             android:layout_width="90dp"
                             android:layout_height="90dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/vocacion1" />
+                            android:layout_gravity="center" />
 
                     </LinearLayout>
 

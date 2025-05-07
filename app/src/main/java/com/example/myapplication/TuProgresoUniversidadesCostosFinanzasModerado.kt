@@ -12,7 +12,7 @@ class TuProgresoUniversidadesCostosFinanzasModerado : AppCompatActivity() {
 
         val botonAtras = findViewById<ImageView>(R.id.atrass)
         botonAtras.setOnClickListener {
-            val intent = Intent(this, MenuPrincipalActivity::class.java)
+            val intent = Intent(this, MetricasTuProgresoActivity::class.java)
             startActivity(intent)
             finish()
         }
