@@ -19,16 +19,24 @@ Este módulo permite al usuario:
 - **Iniciar sesión** con sus credenciales.
 - **Crear un nuevo usuario** si es su primera vez utilizando la app.
 
+![Login](images/modulo1.png)
+
 ### 2. Página principal (Perfil del usuario)
 Una vez autenticado, el usuario accede a su página principal donde puede:
 - Ver su información personal.
 - **Actualizar su perfil** en cualquier momento.
+
+![Perfil del usuario](images/modulo2.png)
 
 ### 3. Test de orientación
 Este módulo se divide en tres secciones fundamentales:
 1. **Test vocacional:** Determina el perfil e intereses del usuario para sugerir áreas de estudio.
 2. **Test universitario:** Sugiere universidades acordes a los resultados del test vocacional.
 3. **Test de costos:** Estima los costos involucrados en el proceso educativo.
+
+![Test de orientación](images/modulo3.1.png)
+![Test de orientación](images/modulo3.2.png)
+![Test de orientación](images/modulo3.3.png)
 
 > Al finalizar los test, el usuario podrá ver **métricas personalizadas** basadas en sus respuestas y elecciones.
 
@@ -37,10 +45,14 @@ En este módulo, los usuarios podrán:
 - **Agendar citas con universidades** de interés.
 - Conocer más sobre el proceso de aplicación, becas, entrevistas y visitas.
 
+![Citas](images/modulo4.png)
+
 ### 5. Estado de aplicaciones universitarias
 Aquí los usuarios tendrán una vista consolidada de:
 - Las **universidades a las que han aplicado**.
 - El **estado actual** de cada aplicación: Aprobado, En proceso o Rechazado.
+
+![Estado de aplicaciones](images/modulo5.png)
 
 ---
 
@@ -55,11 +67,8 @@ TalentGO está dirigido a:
 
 ## 🔧 Tecnologías utilizadas
 
-
 - Kotlin (para aplicaciones Android)
 - Firebase (para autenticación y base de datos)
 - XML (para diseño de interfaz)
-
-
 
 > TalentGO - Ayudándote a descubrir tu camino académico y profesional.
