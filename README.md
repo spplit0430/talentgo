@@ -26,7 +26,7 @@ Una vez autenticado, el usuario accede a su página principal donde puede:
 - Ver su información personal.
 - **Actualizar su perfil** en cualquier momento.
 
-![Perfil del usuario](images/modulo2.png)
+![Perfil del usuario](https://github.com/spplit0430/talentgo/blob/ca4eb3799b3f0a2572b885d4e2c8306e30c92cf3/modulo2.jpeg)
 
 ### 3. Test de orientación
 Este módulo se divide en tres secciones fundamentales:
@@ -34,9 +34,10 @@ Este módulo se divide en tres secciones fundamentales:
 2. **Test universitario:** Sugiere universidades acordes a los resultados del test vocacional.
 3. **Test de costos:** Estima los costos involucrados en el proceso educativo.
 
-![Test de orientación](images/modulo3.1.png)
-![Test de orientación](images/modulo3.2.png)
-![Test de orientación](images/modulo3.3.png)
+![Test de orientación](https://github.com/spplit0430/talentgo/blob/ca4eb3799b3f0a2572b885d4e2c8306e30c92cf3/modulo3.1.jpeg)
+![Test de orientación](https://github.com/spplit0430/talentgo/blob/ca4eb3799b3f0a2572b885d4e2c8306e30c92cf3/modulo3.2.jpeg)
+![Test de orientación](https://github.com/spplit0430/talentgo/blob/ca4eb3799b3f0a2572b885d4e2c8306e30c92cf3/modulo3.3.jpeg)
+![Test de orientación](https://github.com/spplit0430/talentgo/blob/ca4eb3799b3f0a2572b885d4e2c8306e30c92cf3/modulo3.4.jpeg)
 
 > Al finalizar los test, el usuario podrá ver **métricas personalizadas** basadas en sus respuestas y elecciones.
 
@@ -45,14 +46,14 @@ En este módulo, los usuarios podrán:
 - **Agendar citas con universidades** de interés.
 - Conocer más sobre el proceso de aplicación, becas, entrevistas y visitas.
 
-![Citas](images/modulo4.png)
+![Citas](https://github.com/spplit0430/talentgo/blob/ca4eb3799b3f0a2572b885d4e2c8306e30c92cf3/modulo4.jpeg)
 
 ### 5. Estado de aplicaciones universitarias
 Aquí los usuarios tendrán una vista consolidada de:
 - Las **universidades a las que han aplicado**.
 - El **estado actual** de cada aplicación: Aprobado, En proceso o Rechazado.
 
-![Estado de aplicaciones](images/modulo5.png)
+![Estado de aplicaciones](https://github.com/spplit0430/talentgo/blob/ca4eb3799b3f0a2572b885d4e2c8306e30c92cf3/modulo5.jpeg)
 
 ---
 
