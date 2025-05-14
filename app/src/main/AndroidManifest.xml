@@ -4,6 +4,11 @@
 
     <!-- Permiso para Internet -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
 
 
     <application
@@ -74,6 +79,11 @@
         <activity android:name=".TuProgresoUniversidadesCostosFinanzasEconomicas" />
         <activity android:name=".TuProgresoUniversidadesCostosFinanzasModerado" />
         <activity android:name=".TuProgresoUniversidadescostosTodasCarreras" />
+        <activity android:name=".activityaplicacionauniversidadesmodulo5" />
+        <activity android:name=".activityaplicacionauniversidadesmodulo5_1" />
+        <activity android:name=".activityaplicacionauniversidadesmisprocesos" />
+        <activity android:name=".activityaplicacionauniversidadesregistroproceso" />
+
 
 
 

@@ -61,6 +61,10 @@ class MenuPrincipalActivity : BaseMenuActivity() {
         findViewById<TextView>(R.id.btn_TuProgreso).setOnClickListener {
             startActivity(Intent(this, TuProgresoActivity::class.java))
         }
+
+        findViewById<TextView>(R.id.btn_aplicaciones_universidades).setOnClickListener {
+            startActivity(Intent(this, activityaplicacionauniversidadesmodulo5::class.java))
+        }
     }
 
     override fun onResume() {

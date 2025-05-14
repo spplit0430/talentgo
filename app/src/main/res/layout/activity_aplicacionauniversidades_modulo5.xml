@@ -14,8 +14,8 @@
         <!-- ENCABEZADO BLANCO -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@drawable/rounded_bottom_universidades"
+            android:layout_height="249dp"
+            android:background="#FFFFFF"
             android:elevation="4dp"
             android:orientation="vertical"
             android:padding="16dp">
@@ -43,7 +43,6 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/menu" />
-
             </LinearLayout>
 
             <!-- Título y botón alineados a la izquierda -->
@@ -65,21 +64,31 @@
                     android:layout_marginBottom="8dp">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/titulo_universidad"
+                        android:layout_width="280dp"
                         android:layout_height="wrap_content"
-                        android:text="Universidades"
+                        android:layout_marginEnd="8dp"
+                        android:text="Aplicaciones a Universidades"
                         android:textColor="#000000"
-                        android:textSize="45sp"
+                        android:textSize="42sp"
                         android:textStyle="bold"
-                        android:layout_marginEnd="8dp"/>
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/imageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/universidad"
-                        android:contentDescription="universidad"
-                        android:layout_gravity="center_vertical"/>
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/uni"
+                        android:contentDescription="universidades"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/titulo_universidad"
+                        app:layout_constraintBottom_toBottomOf="@id/titulo_universidad"
+                        android:scaleType="fitCenter"
+                        android:adjustViewBounds="true"/>
+
                 </LinearLayout>
 
                 <!-- Botón alineado a la izquierda -->
@@ -88,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:backgroundTint="#2DA9F3"
-                    android:text="Descubre Tu Universidad Ideal"
+                    android:text="Tu Universidad Preferida"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textSize="15sp"
@@ -116,9 +125,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Las mejores oportunidades empiezan con una buena elección. Haz este test y encuentra la universidad perfecta para tu camino."
+                    android:text="Este modulo esta diseñado para ayudarte como estudiante a gestionar y organizar el proceso de admisión en diferentes universidades. Permite registrar cada solicitud de manera detallada, realizar seguimiento al estado de la aplicación que llevas y recibir recordatorios sobre fechas clave.
+Este módulo facilita la toma de decisiones al centralizar toda la información en un solo lugar, permitiendote  registrar y conocer qué universidades te han respondido, cuáles están en proceso y cuáles te han rechazado."
                     android:gravity="center"
-                    android:textSize="30dp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="#000000"
                     android:layout_marginBottom="32dp" />
@@ -291,20 +301,19 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <!-- Espaciador para empujar los botones al fondo -->
+        <!-- Espaciador -->
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <!-- Botones en la parte inferior -->
+        <!-- Botones inferior -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingTop="12dp">
 
-            <!-- Botón inferior izquierdo -->
             <ImageView
                 android:id="@+id/boton_izquierdo"
                 android:layout_width="32dp"
@@ -314,13 +323,11 @@
                 android:clickable="true"
                 android:focusable="true" />
 
-            <!-- Espaciador flexible -->
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-            <!-- Botón inferior derecho -->
             <ImageView
                 android:id="@+id/boton_derecho"
                 android:layout_width="30dp"

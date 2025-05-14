@@ -1,0 +1,110 @@
+<!-- En res/layout/dialog_editar_proceso.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_background"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <EditText
+        android:id="@+id/editTextUniversidad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Universidad" />
+
+    <EditText
+        android:id="@+id/editTextFecha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Fecha de aplicación"
+        android:focusable="false"
+        android:clickable="true" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="16dp">
+
+        <Button
+            android:id="@+id/btnRechazado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Rechazado"
+            android:textSize="12sp"
+            android:textAllCaps="false"
+            android:backgroundTint="#D9534F"
+            android:textColor="#FFFFFF"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="0dp"  />
+
+        <Button
+            android:id="@+id/btnAprobado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Aprobado"
+            android:textSize="12sp"
+            android:textAllCaps="false"
+            android:backgroundTint="#5CB85C"
+            android:textColor="#FFFFFF"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="0dp" />
+
+        <Button
+            android:id="@+id/btnEnProceso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="En Proceso"
+            android:textSize="12sp"
+            android:textAllCaps="false"
+            android:backgroundTint="#0275D8"
+            android:textColor="#FFFFFF"
+            android:layout_marginEnd="0dp"
+            android:layout_marginStart="0dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="24dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_cancelar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancelar"
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#000000"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_gravity="center" />
+
+        <Space
+            android:layout_width="16dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_guardar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guardar"
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#000000"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_gravity="center" />
+    </LinearLayout>
+</LinearLayout>

@@ -286,6 +286,7 @@
                 android:src="@drawable/universidades" />
 
             <TextView
+                android:id="@+id/btn_aplicaciones_universidades"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Aplicaciones a Universidades"

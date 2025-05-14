@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#B9E3F2"
+    android:padding="24dp"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Botón barra superior -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/salida_olvido2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/retroceso" />
+        </LinearLayout>
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/titulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Registro De\nProcesos"
+            android:textSize="38sp"
+            android:textStyle="bold"
+            android:textColor="#5B7F94"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="24dp"
+            android:textAlignment="center" />
+
+        <!-- Universidad -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Universidad"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/et_universidad"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#4A87A0"
+            android:gravity="center"
+            android:text=""
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Programa -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Programa"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/et_programa"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#4A87A0"
+            android:gravity="center"
+            android:text=""
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Fecha de Aplicación -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha De Aplicacion"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/et_fecha_aplicacion"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#4A87A0"
+            android:gravity="center"
+            android:hint="Selecciona fecha"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:layout_marginBottom="24dp"
+            android:padding="12dp"
+            android:layout_marginTop="4dp"
+            android:focusable="false"
+            android:clickable="true"
+            android:inputType="none" />
+
+        <!-- Estado -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estado"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="32dp"
+            android:weightSum="3"
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="8dp">
+
+            <Button
+                android:id="@+id/button_rechazado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Rechazado"
+                android:textSize="12sp"
+                android:textAllCaps="false"
+                android:backgroundTint="#D9534F"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="0dp" />
+
+            <Button
+                android:id="@+id/button_aprobado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Aprobado"
+                android:textSize="12sp"
+                android:textAllCaps="false"
+                android:backgroundTint="#5CB85C"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="0dp" />
+
+            <Button
+                android:id="@+id/button_en_proceso"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="En Proceso"
+                android:textSize="12sp"
+                android:textAllCaps="false"
+                android:backgroundTint="#0275D8"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="0dp"
+                android:layout_marginStart="0dp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_agregar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Agregar"
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#000000"
+            android:layout_marginTop="6dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_gravity="center" />
+
+
+    </LinearLayout>
+</ScrollView>
