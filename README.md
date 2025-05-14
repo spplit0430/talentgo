@@ -19,7 +19,7 @@ Este módulo permite al usuario:
 - **Iniciar sesión** con sus credenciales.
 - **Crear un nuevo usuario** si es su primera vez utilizando la app.
 
-![Login](images/modulo1.png)
+![Login](https://github.com/spplit0430/talentgo/blob/92322d70a504dfe901a509bea3828c830d155cc4/modulo1.jpeg)
 
 ### 2. Página principal (Perfil del usuario)
 Una vez autenticado, el usuario accede a su página principal donde puede:
