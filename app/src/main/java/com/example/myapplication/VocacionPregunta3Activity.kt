@@ -15,7 +15,7 @@ class VocacionPregunta3Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_vocacion_pregunta3) // Asegúrate que este layout exista
+        setContentView(R.layout.activity_vocacion_pregunta3)
 
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
@@ -33,7 +33,7 @@ class VocacionPregunta3Activity : AppCompatActivity() {
             finish()
         }
 
-        // Botones de opción
+
         val opcion1 = findViewById<Button>(R.id.opcion1)
         val opcion2 = findViewById<Button>(R.id.opcion2)
         val opcion3 = findViewById<Button>(R.id.opcion3)

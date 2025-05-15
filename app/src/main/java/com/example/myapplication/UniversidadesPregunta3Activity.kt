@@ -22,7 +22,7 @@ class UniversidadesPregunta3Activity : AppCompatActivity() {
 
         val currentUser = auth.currentUser
         if (currentUser == null) {
-            finish() // o redirige al login si no hay sesión
+            finish()
             return
         }
 

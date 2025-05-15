@@ -46,7 +46,7 @@ class ResultadoVocacionalActivity : AppCompatActivity() {
                     "empresarial" to 0
                 )
 
-                // Calcular las respuestas
+
                 for (doc in result) {
                     val respuesta = doc.getString("respuesta") ?: continue
 
@@ -58,7 +58,7 @@ class ResultadoVocacionalActivity : AppCompatActivity() {
                     }
                 }
 
-                // Mostrar los resultados vocacionales
+
                 val perfilDominante = conteo.maxByOrNull { it.value }?.key
 
                 when (perfilDominante) {
@@ -85,7 +85,7 @@ class ResultadoVocacionalActivity : AppCompatActivity() {
                     else -> throw IllegalArgumentException("Perfil vocacional desconocido: $perfilDominante")
                 }
 
-                // Enviar los resultados al gráfico en la siguiente actividad
+
                 val intent = Intent(this, MetricasTuProgresoActivity::class.java).apply {
                     putExtra("animales", conteo["animales"] ?: 0)
                     putExtra("diseño", conteo["diseño"] ?: 0)
@@ -93,7 +93,7 @@ class ResultadoVocacionalActivity : AppCompatActivity() {
                     putExtra("empresarial", conteo["empresarial"] ?: 0)
                 }
 
-                // Guardar los resultados en Firestore para que se mantengan actualizados
+
                 firestore.collection("metricas_vocacionales")
                     .document(userId)
                     .set(conteo)
@@ -104,16 +104,16 @@ class ResultadoVocacionalActivity : AppCompatActivity() {
                         Toast.makeText(this, "Error al guardar los resultados: ${exception.localizedMessage}", Toast.LENGTH_SHORT).show()
                     }
 
-                // Configurar el botón para redirigir al siguiente Activity
-                finalizarBtn.setOnClickListener {
-                    // Redirigir a Métricas
-                    startActivity(intent)  // Redirigir a la actividad de Métricas
-                    finish()  // Finalizar la actividad actual
 
-                    // También puedes redirigir a otra actividad si lo deseas
+                finalizarBtn.setOnClickListener {
+
+                    startActivity(intent)
+                    finish()
+
+
                     val continuaIntent = Intent(this, ContinuaVocacionalActivity::class.java)
-                    startActivity(continuaIntent)  // Redirigir a la vista de continua_vocacion
-                    finish()  // Finalizar esta actividad también
+                    startActivity(continuaIntent)
+                    finish()
                 }
             }
             .addOnFailureListener { exception ->

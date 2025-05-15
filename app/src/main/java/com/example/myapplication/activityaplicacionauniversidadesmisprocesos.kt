@@ -137,7 +137,7 @@ class activityaplicacionauniversidadesmisprocesos : AppCompatActivity() {
 
                 var estadoSeleccionado = estado
 
-                // Estado por defecto
+
                 val btnRechazado = dialogView.findViewById<Button>(R.id.btnRechazado)
                 val btnAprobado = dialogView.findViewById<Button>(R.id.btnAprobado)
                 val btnProceso = dialogView.findViewById<Button>(R.id.btnEnProceso)
@@ -157,7 +157,7 @@ class activityaplicacionauniversidadesmisprocesos : AppCompatActivity() {
                 editUni.setText(nombreUni)
                 editFecha.setText(fecha)
 
-                // Añadir funcionalidad para DatePicker y TimePicker
+
                 editFecha.setOnClickListener {
                     val calendar = Calendar.getInstance()
                     val year = calendar.get(Calendar.YEAR)
@@ -169,13 +169,13 @@ class activityaplicacionauniversidadesmisprocesos : AppCompatActivity() {
                     val datePickerDialog = DatePickerDialog(
                         context,
                         { _, selectedYear, selectedMonth, selectedDay ->
-                            // Crear TimePickerDialog
+
                             val timePickerDialog = TimePickerDialog(
                                 context,
                                 { _, selectedHour, selectedMinute ->
-                                    // Formato de la fecha y hora
+
                                     val selectedDateTime = "$selectedDay/${selectedMonth + 1}/$selectedYear $selectedHour:$selectedMinute"
-                                    editFecha.setText(selectedDateTime)  // Establecer fecha y hora en el EditText
+                                    editFecha.setText(selectedDateTime)
                                 },
                                 hour, minute, true
                             )
@@ -190,7 +190,7 @@ class activityaplicacionauniversidadesmisprocesos : AppCompatActivity() {
                     .setView(dialogView)
                     .create()
 
-                // Verificar si los botones no son null antes de usarlos
+
                 dialogView.findViewById<Button>(R.id.btn_cancelar)?.setOnClickListener {
                     dialog.dismiss()
                 }

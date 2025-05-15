@@ -33,7 +33,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2_usuario)
 
-        // Inicializar ActivityResultLauncher
+
         actualizarUsuarioLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
@@ -54,23 +54,23 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             }
         }
 
-        // Referencias a los EditText
+
         nombreText = findViewById(R.id.nombre_text)
         apellidoText = findViewById(R.id.apellido_text)
         correoText = findViewById(R.id.correo_electronico_text)
         fechaNacimientoText = findViewById(R.id.fecha_de_nacimiento_text)
 
-        // Deshabilitar edición directa en los campos
+
         nombreText.isEnabled = false
         apellidoText.isEnabled = false
         correoText.isEnabled = false
         fechaNacimientoText.isEnabled = false
 
-        // Referencias a los TextView del encabezado
+
         nombreLabel = findViewById(R.id.nombre_label)
         apellidoLabel = findViewById(R.id.apellido_label)
 
-        // Recargar usuario para reflejar cambios recientes
+
         auth.currentUser?.reload()?.addOnSuccessListener {
             cargarPerfilUsuario()
         }?.addOnFailureListener {
@@ -78,7 +78,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             finish()
         }
 
-        // Botón de retroceso
+
         val botonRetroceso = findViewById<ImageView>(R.id.salida_olvido3)
         botonRetroceso.setOnClickListener {
             val userId = auth.currentUser?.uid
@@ -111,7 +111,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             }
         }
 
-        // Botón de actualizar información
+
         val actualizarBtn = findViewById<Button>(R.id.login_button)
         actualizarBtn.setOnClickListener {
             val intent = Intent(this, ActualizarUsuarioActivity::class.java).apply {

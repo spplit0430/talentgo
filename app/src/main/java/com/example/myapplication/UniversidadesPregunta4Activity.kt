@@ -59,7 +59,7 @@ class UniversidadesPregunta4Activity : AppCompatActivity() {
             .set(respuestaData)
             .addOnSuccessListener {
                 Toast.makeText(this, "Gracias por completar el test!", Toast.LENGTH_SHORT).show()
-                // Aquí puedes redirigir al resumen de resultados o pantalla principal
+
                 val intent = Intent(this, ResultadoUniversidadActivity::class.java)
                 startActivity(intent)
                 finish()

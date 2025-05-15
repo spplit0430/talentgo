@@ -35,7 +35,7 @@ class ResultadoVocacionCostosActivity : AppCompatActivity() {
                     val perfilVocacional = vocDoc.data?.maxByOrNull { it.value as Long }?.key
                     val perfilCostos = costoDoc.data?.maxByOrNull { it.value as Long }?.key
 
-                    // === Aquí decides qué layout mostrar según la combinación ===
+
                     when {
                         perfilVocacional == "finanzas" && perfilCostos == "presupuestoBajo" -> {
                             startActivity(Intent(this, TuProgresoUniversidadesCostosFinanzasEconomicas::class.java))

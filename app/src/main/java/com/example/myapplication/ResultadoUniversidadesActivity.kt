@@ -78,7 +78,7 @@ class ResultadoUniversidadActivity : AppCompatActivity() {
                     "flexible" to flexible
                 )
 
-                // Enviar los resultados al gráfico en la siguiente actividad
+
                 val intent = Intent(this, MetricasTuProgresoActivity::class.java).apply {
                     putExtra("prestigio", prestigio)
                     putExtra("publica", publica)
@@ -87,7 +87,7 @@ class ResultadoUniversidadActivity : AppCompatActivity() {
                     putExtra("flexible", flexible)
                 }
 
-                // Guardar los resultados en Firestore
+
                 firestore.collection("metricas_universidades")
                     .document(userId)
                     .set(conteo)
@@ -98,7 +98,7 @@ class ResultadoUniversidadActivity : AppCompatActivity() {
                         Toast.makeText(this, "Error al guardar los resultados: ${exception.localizedMessage}", Toast.LENGTH_SHORT).show()
                     }
 
-                // Mostrar resultado visual en pantalla
+
                 val perfil = when {
                     flexible >= 2 -> "universidad_prestigio_economica"
                     publica >= 2 && online >= 2 -> "universidad_publica_tecnologica"
@@ -112,9 +112,9 @@ class ResultadoUniversidadActivity : AppCompatActivity() {
                 mostrarResultadoPerfil(perfil)
 
                 finalizarBtn.setOnClickListener {
-                    startActivity(intent)  // Ir a Métricas
+                    startActivity(intent)
                     val continuaIntent = Intent(this, ContinuaUniversidadesActivity::class.java)
-                    startActivity(continuaIntent)  // Ir a vista continua
+                    startActivity(continuaIntent)
                     finish()
                 }
             }

@@ -10,10 +10,10 @@ class ForgotPasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_olvido)
 
-        // Configurar el botón de salida (retorno al Login)
+
         val salidaOlvido = findViewById<ImageView>(R.id.salida_olvido)
         salidaOlvido.setOnClickListener {
-            // Finaliza esta actividad y vuelve al Login (MainActivity)
+
             finish()
         }
     }

@@ -22,7 +22,7 @@ class VocacionPreguntasActivity : AppCompatActivity() {
 
         val currentUser = auth.currentUser
         if (currentUser == null) {
-            finish() // O redirige al login si no hay sesión
+            finish()
             return
         }
 
@@ -33,7 +33,7 @@ class VocacionPreguntasActivity : AppCompatActivity() {
             finish()
         }
 
-        // Botones de respuesta
+
         val opcion1 = findViewById<Button>(R.id.opcion1)
         val opcion2 = findViewById<Button>(R.id.opcion2)
         val opcion3 = findViewById<Button>(R.id.opcion3)
@@ -50,25 +50,25 @@ class VocacionPreguntasActivity : AppCompatActivity() {
     private fun guardarRespuestaYAvanzar(respuesta: String) {
         val userId = auth.currentUser?.uid ?: return
 
-        // Estructura para guardar la respuesta en un documento específico por pregunta
+
         val respuestaData = hashMapOf(
             "respuesta" to respuesta
         )
 
-        // Guarda la respuesta bajo la colección "respuestas_vocacion" con un subdocumento para cada pregunta
+
         firestore.collection("respuestas_vocacion")
-            .document(userId)  // Usamos el UID del usuario como documento
-            .collection("preguntas")  // Subcolección "preguntas" para cada pregunta
-            .document("pregunta1")  // Documento específico para la primera pregunta
+            .document(userId)
+            .collection("preguntas")
+            .document("pregunta1")
             .set(respuestaData)
             .addOnSuccessListener {
-                // Redirigir a la siguiente pregunta
+
                 val intent = Intent(this, VocacionPregunta2Activity::class.java)
                 startActivity(intent)
                 finish()
             }
             .addOnFailureListener { e ->
-                // Manejar error (puedes mostrar un Toast si quieres)
+
                 e.printStackTrace()
             }
     }

@@ -30,23 +30,23 @@ class activityaplicacionauniversidadesregistroproceso : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_aplicacionauniversidades_registroproceso)
 
-        // Firebase
+
         firestore = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
 
-        // EditText
+
         etUniversidad = findViewById(R.id.et_universidad)
         etPrograma = findViewById(R.id.et_programa)
         etFechaAplicacion = findViewById(R.id.et_fecha_aplicacion)
 
-        // Botones
+
         btnRechazado = findViewById(R.id.button_rechazado)
         btnAprobado = findViewById(R.id.button_aprobado)
         btnEnProceso = findViewById(R.id.button_en_proceso)
         btnAgregar = findViewById(R.id.btn_agregar)
         btnRetroceso = findViewById(R.id.salida_olvido2)
 
-        // Configuración de la fecha en el campo
+
         etFechaAplicacion.setOnClickListener {
             mostrarFechaDialog()
         }
@@ -75,7 +75,7 @@ class activityaplicacionauniversidadesregistroproceso : AppCompatActivity() {
         }
     }
 
-    // Función para mostrar el DatePickerDialog
+
     private fun mostrarFechaDialog() {
         val calendar = Calendar.getInstance()
 
@@ -86,17 +86,17 @@ class activityaplicacionauniversidadesregistroproceso : AppCompatActivity() {
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)
 
-        // Crear el DatePickerDialog con la fecha actual como valor predeterminado
+
         val datePickerDialog = DatePickerDialog(
             this,
             { _, selectedYear, selectedMonth, selectedDay ->
-                // Crear el TimePickerDialog con la hora actual como valor predeterminado
+
                 val timePickerDialog = TimePickerDialog(
                     this,
                     { _, selectedHour, selectedMinute ->
                         // Formato de la fecha y hora
                         val selectedDateTime = "$selectedDay/${selectedMonth + 1}/$selectedYear $selectedHour:$selectedMinute"
-                        etFechaAplicacion.setText(selectedDateTime) // Establecer la fecha y hora en el EditText
+                        etFechaAplicacion.setText(selectedDateTime)
                     },
                     hour, minute, true
                 )
@@ -105,7 +105,7 @@ class activityaplicacionauniversidadesregistroproceso : AppCompatActivity() {
             year, month, day
         )
 
-        // Mostrar el DatePickerDialog
+
         datePickerDialog.show()
     }
 
@@ -138,12 +138,12 @@ class activityaplicacionauniversidadesregistroproceso : AppCompatActivity() {
             "userId" to userId
         )
 
-        // Aquí utilizamos add() para crear un nuevo documento con un ID único
+
         firestore.collection("procesos_universidad")
-            .add(procesoData) // `add()` genera un ID único para cada nuevo registro
+            .add(procesoData)
             .addOnSuccessListener {
                 Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show()
-                finish() // O redirige a MisProcesosActivity
+                finish()
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Error al guardar: ${it.message}", Toast.LENGTH_LONG).show()

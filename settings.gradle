@@ -9,7 +9,7 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
-        maven { url 'https://jitpack.io' } // 👉 Añadido aquí por compatibilidad con algunos plugins
+        maven { url 'https://jitpack.io' }
     }
 }
 
@@ -18,7 +18,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://jitpack.io' } // 👉 Añadido aquí para que encuentre MPAndroidChart
+        maven { url 'https://jitpack.io' }
     }
 }
 

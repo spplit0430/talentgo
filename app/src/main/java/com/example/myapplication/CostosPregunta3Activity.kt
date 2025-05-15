@@ -15,7 +15,7 @@ class CostosPregunta3Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_costos_pregunta3) // Asegúrate que el XML tenga este nombre
+        setContentView(R.layout.activity_costos_pregunta3)
 
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()

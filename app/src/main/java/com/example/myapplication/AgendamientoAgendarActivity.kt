@@ -31,7 +31,7 @@ class AgendamientoAgendarActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_agendamiento_agendar)
 
-        // Botón de retroceso
+
         val botonAtras = findViewById<ImageView>(R.id.salida_olvido2)
         botonAtras.setOnClickListener {
             val intent = Intent(this, AgendamientoActivity::class.java)
@@ -39,7 +39,7 @@ class AgendamientoAgendarActivity : AppCompatActivity() {
             finish()
         }
 
-        // Referencias a los elementos
+
         inputUniversidad = findViewById(R.id.input_universidad)
         inputFechaHora = findViewById(R.id.input_fecha_hora)
         btnRemoto = findViewById(R.id.btn_remoto)
@@ -47,7 +47,7 @@ class AgendamientoAgendarActivity : AppCompatActivity() {
         switchRecordatorios = findViewById(R.id.switch_recordatorios)
         btnAgendar = findViewById(R.id.btn_agendar)
 
-        // Selector de fecha y hora
+
         inputFechaHora.setOnClickListener {
             mostrarDateTimePicker()
         }
@@ -85,10 +85,10 @@ class AgendamientoAgendarActivity : AppCompatActivity() {
             }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show()
         }
 
-        // Obtener la fecha de hoy
+
         val today = Calendar.getInstance()
 
-        // Establecer la fecha mínima del DatePicker como la fecha de hoy
+
         val datePickerDialog = DatePickerDialog(
             this, dateListener,
             today.get(Calendar.YEAR),
@@ -96,7 +96,7 @@ class AgendamientoAgendarActivity : AppCompatActivity() {
             today.get(Calendar.DAY_OF_MONTH)
         )
 
-        // Establecer la fecha mínima como la de hoy
+
         datePickerDialog.datePicker.minDate = today.timeInMillis
 
         datePickerDialog.show()

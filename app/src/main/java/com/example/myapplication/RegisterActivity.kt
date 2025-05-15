@@ -26,7 +26,7 @@ class RegisterActivity : AppCompatActivity() {
 
         val salirRegistro = findViewById<ImageView>(R.id.salida_olvido2)
         salirRegistro.setOnClickListener {
-            finish()  // Terminar la actividad de registro
+            finish()
         }
 
         val nombreText = findViewById<EditText>(R.id.nombre_text)
@@ -62,18 +62,18 @@ class RegisterActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         val user = auth.currentUser
 
-                        // Actualiza perfil (nombre completo)
+
                         val profileUpdates = userProfileChangeRequest {
                             displayName = "$nombre $apellido"
                         }
                         user?.updateProfile(profileUpdates)
 
-                        // Guardar datos en Firestore
+
                         val userMap = hashMapOf(
                             "nombre" to nombre,
                             "apellido" to apellido,
                             "correo_electronico" to correo,
-                            "fechaNacimiento" to fechaNacimiento // Cambiar de fecha_de_nacimiento a fechaNacimiento
+                            "fechaNacimiento" to fechaNacimiento
                         )
 
                         val userId = user?.uid
@@ -82,7 +82,7 @@ class RegisterActivity : AppCompatActivity() {
                             firestore.collection("usuarios").document(userId)
                                 .set(userMap)
                                 .addOnSuccessListener {
-                                    // Enviar correo de verificación
+
                                     sendEmailVerification(user)
 
                                     Toast.makeText(this, "Registro exitoso, por favor verifica tu correo.", Toast.LENGTH_LONG).show()
@@ -100,20 +100,20 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    // Función para validar y formatear la fecha
+
     private fun formatFecha(fecha: String): String? {
-        val inputFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()) // Formato esperado
-        val outputFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()) // El formato que se va a guardar
+        val inputFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
 
         return try {
             val date = inputFormat.parse(fecha)
             outputFormat.format(date)
         } catch (e: Exception) {
-            null // Retorna null si la fecha es inválida
+            null
         }
     }
 
-    // Función para enviar un correo de verificación
+
     private fun sendEmailVerification(user: FirebaseUser?) {
         user?.sendEmailVerification()
             ?.addOnSuccessListener {

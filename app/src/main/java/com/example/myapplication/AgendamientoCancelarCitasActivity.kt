@@ -25,7 +25,7 @@ class AgendamientoCancelarCitasActivity : AppCompatActivity() {
 
         cargarCitas()
 
-        // Botón de retroceso
+
         val botonAtras = findViewById<ImageView>(R.id.salida_olvido2)
         botonAtras.setOnClickListener {
             val intent = Intent(this, AgendamientoActivity::class.java)

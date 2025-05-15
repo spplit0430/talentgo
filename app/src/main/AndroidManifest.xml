@@ -94,7 +94,7 @@
 
 
 
-        <!-- ✅ LoginActivity como pantalla principal -->
+
         <activity
             android:name=".LoginActivity"
             android:exported="true">

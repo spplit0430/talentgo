@@ -31,13 +31,13 @@ class MenuPrincipalActivity : BaseMenuActivity() {
         nombreLabel = findViewById(R.id.nombre_label)
         apellidoLabel = findViewById(R.id.apellido_label)
 
-        // Configura el menú con la lógica heredada
+
         configurarMenuLateral(drawerLayout, btnMenu, nombreLabel, apellidoLabel)
 
-        // Cargar datos iniciales del usuario
+
         cargarDatosUsuario()
 
-        // Navegación a otras secciones
+
         findViewById<Button>(R.id.btn_tests).setOnClickListener {
             startActivity(Intent(this, VocacionActivity::class.java))
         }
@@ -74,7 +74,7 @@ class MenuPrincipalActivity : BaseMenuActivity() {
 
     private fun cargarDatosUsuario() {
         firestore.collection("usuarios").document(userId)
-            .get(Source.SERVER) // Fuerza obtener datos frescos del servidor
+            .get(Source.SERVER)
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
                     nombre = document.getString("nombre") ?: ""

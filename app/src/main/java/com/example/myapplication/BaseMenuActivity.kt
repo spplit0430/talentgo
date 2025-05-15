@@ -21,7 +21,7 @@ abstract class BaseMenuActivity : AppCompatActivity() {
     protected lateinit var firestore: FirebaseFirestore
     protected var userId: String = ""
 
-    // Nuevo: launcher para esperar el resultado al regresar de PerfilUsuarioActivity
+
     protected lateinit var perfilUsuarioLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +38,7 @@ abstract class BaseMenuActivity : AppCompatActivity() {
 
         userId = currentUser.uid
 
-        // Registrar el launcher que escucha el resultado de PerfilUsuarioActivity
+
         perfilUsuarioLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
@@ -58,7 +58,7 @@ abstract class BaseMenuActivity : AppCompatActivity() {
 
         btnMenu.setOnClickListener {
             if (!drawerLayout.isDrawerOpen(GravityCompat.END)) {
-                // Cargar siempre los datos actualizados al abrir el menú
+
                 firestore.collection("usuarios").document(userId).get()
                     .addOnSuccessListener { doc ->
                         nombreLabel.text = doc.getString("nombre") ?: ""
@@ -89,7 +89,7 @@ abstract class BaseMenuActivity : AppCompatActivity() {
             }
         }
 
-        // Navegación
+
         findViewById<Button>(R.id.btn_tests)?.setOnClickListener {
             startActivity(Intent(this, VocacionActivity::class.java))
         }
@@ -128,7 +128,7 @@ abstract class BaseMenuActivity : AppCompatActivity() {
             .create().show()
     }
 
-    // Nuevo: función para recargar los datos del usuario después de actualizar
+
     open fun recargarDatosUsuario() {
         val nombreLabel = findViewById<TextView>(R.id.nombre_label_2)
         val apellidoLabel = findViewById<TextView>(R.id.apellido_label_2)

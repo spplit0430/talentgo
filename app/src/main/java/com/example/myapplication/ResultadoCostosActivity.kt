@@ -80,7 +80,7 @@ class ResultadoCostoActivity : AppCompatActivity() {
                     }
                 }
 
-                // Guardar resultado en Firestore (colección metricas_costos)
+
                 val metricas = hashMapOf(
                     "presupuestoBajo" to conteo["presupuestoBajo"],
                     "alternativaEconomica" to conteo["alternativaEconomica"],

@@ -10,7 +10,7 @@ class TuProgresoUniversidadesCostosAnimalesModeradoAlto : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.tuprogreso_universidadescostos_animales_moderadoalto)
 
-        // Botón para regresar a la pantalla de métricas
+
         val botonAtras = findViewById<ImageView>(R.id.atrass)
         botonAtras.setOnClickListener {
             val intent = Intent(this, MetricasTuProgresoActivity::class.java)

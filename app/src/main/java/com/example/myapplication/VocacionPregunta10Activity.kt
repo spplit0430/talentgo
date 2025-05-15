@@ -57,7 +57,7 @@ class VocacionPregunta10Activity : AppCompatActivity() {
             .document("pregunta10")
             .set(respuestaData)
             .addOnSuccessListener {
-                // Aquí puedes redirigir a un resumen o pantalla de resultados
+
                 val intent = Intent(this, ResultadoVocacionalActivity::class.java)
                 startActivity(intent)
                 finish()

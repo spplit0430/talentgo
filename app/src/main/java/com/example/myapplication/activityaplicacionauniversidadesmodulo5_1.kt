@@ -13,13 +13,13 @@ class activityaplicacionauniversidadesmodulo5_1 : BaseMenuActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_aplicacionauniversidades_modulo5_1)
 
-        // Referencias del menú lateral
+
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         val btnMenu = findViewById<ImageView>(R.id.btn_menu)
         val nombreLabel = findViewById<TextView>(R.id.nombre_label_2)
         val apellidoLabel = findViewById<TextView>(R.id.apellido_label_2)
 
-        // Configurar menú lateral
+
         configurarMenuLateral(drawerLayout, btnMenu, nombreLabel, apellidoLabel)
 
         // Botón de regreso al menú principal
@@ -31,7 +31,7 @@ class activityaplicacionauniversidadesmodulo5_1 : BaseMenuActivity() {
             finish()
         }
 
-        // Referencias y listeners para los botones nuevos
+
         val btnRegistroProcesos = findViewById<Button>(R.id.btn_opcion1)
         val btnMisProcesos = findViewById<Button>(R.id.btn_opcion2)
 

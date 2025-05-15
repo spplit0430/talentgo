@@ -45,16 +45,16 @@ class MetricasTuProgresoActivity : BaseMenuActivity() {
             }
         }
 
-        // Referencias necesarias para el menú lateral
+
         val drawerLayout = findViewById<androidx.drawerlayout.widget.DrawerLayout>(R.id.drawer_layout)
         val btnMenu = findViewById<ImageView>(R.id.btn_menu)
         val nombreLabel = findViewById<TextView>(R.id.nombre_label_2)
         val apellidoLabel = findViewById<TextView>(R.id.apellido_label_2)
 
-        // Configurar menú lateral con método de BaseMenuActivity
+
         configurarMenuLateral(drawerLayout, btnMenu, nombreLabel, apellidoLabel)
 
-        // Botón para regresar al menú principal
+
         val btnRegresar = findViewById<ImageView>(R.id.salida_olvido2)
         btnRegresar.setOnClickListener {
             val intent = Intent(this, TuProgresoActivity::class.java)
@@ -66,7 +66,7 @@ class MetricasTuProgresoActivity : BaseMenuActivity() {
 
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
 
-        // Obtener las métricas vocacionales
+
         val btnVerPerfil = findViewById<Button>(R.id.btn_ver_perfil)
         val pieChartVocacional = findViewById<PieChart>(R.id.pieChartVocacional)
 
@@ -80,7 +80,7 @@ class MetricasTuProgresoActivity : BaseMenuActivity() {
                     val finanzas = document.getLong("finanzas")?.toInt() ?: 0
                     val empresarial = document.getLong("empresarial")?.toInt() ?: 0
 
-                    // === Crear las entradas del gráfico tipo pastel ===
+
                     val entriesVocacion = mutableListOf<PieEntry>()
                     entriesVocacion.add(PieEntry(animales.toFloat(), "Animales"))
                     entriesVocacion.add(PieEntry(diseno.toFloat(), "Diseño"))
@@ -89,17 +89,17 @@ class MetricasTuProgresoActivity : BaseMenuActivity() {
 
                     val dataSetVocacion = PieDataSet(entriesVocacion, "VOCACION")
                     dataSetVocacion.colors = listOf(
-                        Color.parseColor("#FFC107"), // Ámbar – Animales
-                        Color.parseColor("#03A9F4"), // Celeste – Diseño
-                        Color.parseColor("#4CAF50"), // Verde – Finanzas
-                        Color.parseColor("#9C27B0")  // Morado – Empresarial
+                        Color.parseColor("#FFC107"),
+                        Color.parseColor("#03A9F4"),
+                        Color.parseColor("#4CAF50"),
+                        Color.parseColor("#9C27B0")
                     )
 
                     val dataVocacion = PieData(dataSetVocacion)
                     dataVocacion.setValueTextSize(9f)
                     dataVocacion.setValueTextColor(Color.WHITE)
 
-                    // Configurar el gráfico
+
                     pieChartVocacional.data = dataVocacion
                     pieChartVocacional.description.isEnabled = false
                     pieChartVocacional.legend.textSize = 9f
@@ -107,7 +107,7 @@ class MetricasTuProgresoActivity : BaseMenuActivity() {
                     pieChartVocacional.setEntryLabelTextSize(9f)
                     pieChartVocacional.invalidate()
 
-                    // === Determinar perfil con mayor puntaje ===
+
                     val puntajes = mapOf(
                         "animales" to animales,
                         "diseño" to diseno,
@@ -140,20 +140,20 @@ class MetricasTuProgresoActivity : BaseMenuActivity() {
                 Toast.makeText(this, "Error al recuperar los datos: ${exception.localizedMessage}", Toast.LENGTH_SHORT).show()
             }
 
-        // Obtener las métricas de universidades
+
         firestore.collection("metricas_universidades")
             .document(userId)
             .get()
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
-                    // Recuperar las métricas para universidades
+
                     val prestigio = document.getLong("prestigio")?.toInt() ?: 0
                     val publica = document.getLong("publica")?.toInt() ?: 0
                     val privada = document.getLong("privada")?.toInt() ?: 0
                     val online = document.getLong("online")?.toInt() ?: 0
                     val flexible = document.getLong("flexible")?.toInt() ?: 0
 
-                    // Crear las entradas para el gráfico de pastel (PieChart)
+
                     val entriesUniversidades = mutableListOf<PieEntry>()
                     entriesUniversidades.add(PieEntry(prestigio.toFloat(), "Prestigio"))
                     entriesUniversidades.add(PieEntry(publica.toFloat(), "Pública"))
@@ -161,7 +161,7 @@ class MetricasTuProgresoActivity : BaseMenuActivity() {
                     entriesUniversidades.add(PieEntry(online.toFloat(), "Online"))
                     entriesUniversidades.add(PieEntry(flexible.toFloat(), "Flexible"))
 
-                    // Configuración del gráfico de pastel
+
                     val dataSetUniversidades = PieDataSet(entriesUniversidades, "UNIVERSIDADES")
                     dataSetUniversidades.colors = listOf(
                         Color.parseColor("#FF5722"),  // Naranja – Prestigio
@@ -175,7 +175,7 @@ class MetricasTuProgresoActivity : BaseMenuActivity() {
                     dataUniversidades.setValueTextSize(9f)
                     dataUniversidades.setValueTextColor(Color.WHITE)
 
-                    // Asignar los datos al gráfico
+
                     pieChartUniversidades.data = dataUniversidades
                     pieChartUniversidades.description.isEnabled = false
                     pieChartUniversidades.legend.textSize = 9f
@@ -190,7 +190,7 @@ class MetricasTuProgresoActivity : BaseMenuActivity() {
                 Toast.makeText(this, "Error al recuperar los datos de universidades: ${exception.localizedMessage}", Toast.LENGTH_SHORT).show()
             }
 
-        // MÉTRICAS COSTOS
+
         firestore.collection("metricas_costos")
             .document(userId)
             .get()
@@ -207,9 +207,9 @@ class MetricasTuProgresoActivity : BaseMenuActivity() {
 
                     val dataSetCostos = PieDataSet(entriesCostos, "COSTOS")
                     dataSetCostos.colors = listOf(
-                        Color.parseColor("#43A047"),  // Verde – Económico
-                        Color.parseColor("#1E88E5"),  // Azul – Alta Inversión
-                        Color.parseColor("#8E24AA")   // Morado – Moderado
+                        Color.parseColor("#43A047"),
+                        Color.parseColor("#1E88E5"),
+                        Color.parseColor("#8E24AA")
                     )
 
                     val dataCostos = PieData(dataSetCostos)

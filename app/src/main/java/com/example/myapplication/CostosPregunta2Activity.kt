@@ -22,7 +22,7 @@ class CostosPregunta2Activity : AppCompatActivity() {
 
         val currentUser = auth.currentUser
         if (currentUser == null) {
-            finish() // O redirige al login si no hay sesión
+            finish()
             return
         }
 
@@ -33,7 +33,7 @@ class CostosPregunta2Activity : AppCompatActivity() {
             finish()
         }
 
-        // Botones de respuesta
+
         val opcion1 = findViewById<Button>(R.id.btn_opcion1)
         val opcion2 = findViewById<Button>(R.id.btn_opcion2)
         val opcion3 = findViewById<Button>(R.id.btn_opcion3)
@@ -56,7 +56,7 @@ class CostosPregunta2Activity : AppCompatActivity() {
             .document("pregunta2")
             .set(respuestaData)
             .addOnSuccessListener {
-                // Redirigir a la siguiente pregunta (CostosPregunta3Activity)
+
                 val intent = Intent(this, CostosPregunta3Activity::class.java)
                 startActivity(intent)
                 finish()

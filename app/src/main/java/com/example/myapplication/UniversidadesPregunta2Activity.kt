@@ -22,7 +22,7 @@ class UniversidadesPregunta2Activity : AppCompatActivity() {
 
         val currentUser = auth.currentUser
         if (currentUser == null) {
-            finish() // o redirige al login si no hay sesión
+            finish()
             return
         }
 
@@ -33,7 +33,7 @@ class UniversidadesPregunta2Activity : AppCompatActivity() {
             finish()
         }
 
-        // Asegúrate que estos IDs estén bien puestos en el XML
+
         val opcion1 = findViewById<Button>(R.id.button_publica)
         val opcion2 = findViewById<Button>(R.id.button_privada)
         val opcion3 = findViewById<Button>(R.id.button_online)
@@ -63,7 +63,7 @@ class UniversidadesPregunta2Activity : AppCompatActivity() {
                 finish()
             }
             .addOnFailureListener { e ->
-                e.printStackTrace() // Puedes mostrar un Toast o diálogo
+                e.printStackTrace()
             }
     }
 }

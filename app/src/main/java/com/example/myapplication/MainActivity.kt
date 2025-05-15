@@ -13,30 +13,30 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // Decisión para cargar el layout apropiado
-        val isLogin = intent.getBooleanExtra("IS_LOGIN", true) // Define si es login o registrar
+
+        val isLogin = intent.getBooleanExtra("IS_LOGIN", true)
 
         if (isLogin) {
-            setContentView(R.layout.activity_main_login) // Layout de login
+            setContentView(R.layout.activity_main_login)
 
-            // Configurar el enlace "Registrarse"
+
             val registerLink = findViewById<TextView>(R.id.register_link)
             registerLink.setOnClickListener {
-                val intent = Intent(this, RegisterActivity::class.java) // Actividad de registro
+                val intent = Intent(this, RegisterActivity::class.java)
                 startActivity(intent)
             }
 
             val forgotPasswordLink = findViewById<TextView>(R.id.forgot_password_link)
             forgotPasswordLink.setOnClickListener {
-                val intent = Intent(this, ForgotPasswordActivity::class.java) // Actividad de olvido de contraseña
+                val intent = Intent(this, ForgotPasswordActivity::class.java)
                 startActivity(intent)
             }
 
         } else {
-            setContentView(R.layout.activity_main_registrarse) // Layout de registro
+            setContentView(R.layout.activity_main_registrarse)
         }
 
-        // Ajustes comunes para ambos layouts
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

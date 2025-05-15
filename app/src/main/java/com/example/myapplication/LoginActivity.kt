@@ -23,19 +23,19 @@ class LoginActivity : AppCompatActivity() {
         val passwordField = findViewById<EditText>(R.id.password_field)
         val loginButton = findViewById<Button>(R.id.login_button)
 
-        // Enlace a "Registrarse"
+
         val registerLink = findViewById<TextView>(R.id.register_link)
         registerLink.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
-        // Enlace a "¿Olvidaste tu contraseña?"
+
         val forgotPasswordLink = findViewById<TextView>(R.id.forgot_password_link)
         forgotPasswordLink.setOnClickListener {
             startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }
 
-        // Login con Firebase
+
         loginButton.setOnClickListener {
             val correo = usernameField.text.toString().trim()
             val contrasena = passwordField.text.toString().trim()
@@ -50,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         val user = auth.currentUser
                         if (user != null && user.isEmailVerified) {
-                            // Si el correo está verificado, permite el login
+
                             Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
                             val intent = Intent(this, MenuPrincipalActivity::class.java).apply {
                                 putExtra("correo", user.email)
@@ -58,7 +58,7 @@ class LoginActivity : AppCompatActivity() {
                             startActivity(intent)
                             finish()
                         } else {
-                            // Si el correo no está verificado
+
                             Toast.makeText(this, "Por favor, verifica tu correo antes de iniciar sesión.", Toast.LENGTH_LONG).show()
                         }
                     } else {
